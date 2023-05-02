@@ -78,6 +78,7 @@ class ExpediaTest(unittest.TestCase):
         #Extra buffer time for visual page load analysis 
         self.kpi_labels["Thing to do"]["buffer_time"] = 1.2
         self.kpi_labels["Select Event"]["buffer_time"] = 1.2
+        self.kpi_labels["Account"]["buffer_time"] = 1
 
         
         self.status = "Failed_Driver_Creation"
@@ -103,19 +104,15 @@ class ExpediaTest(unittest.TestCase):
         
         #Launch App
         self.driver.launch_app()
-        self.wait.until(
-            EC.presence_of_element_located((MobileBy.ACCESSIBILITY_ID, "Flights"))
+        account = self.wait.until(
+            EC.presence_of_element_located((MobileBy.ACCESSIBILITY_ID, "Profile. Button"))
         )
         self.kpi_labels["Launch"]["end"] = int(round(time.time() * 1000))
         print("\nApp Launched")
-        time.sleep(2)
+        time.sleep(3)
 
         self.status = "Failed_Account"
-        account = self.wait.until(
-            EC.presence_of_element_located(
-                (MobileBy.ACCESSIBILITY_ID, "Profile. Button")
-            )
-        )
+        
         self.kpi_labels["Account"]["start"] = int(round(time.time() * 1000))
         account.click()
         self.wait.until(
@@ -125,6 +122,7 @@ class ExpediaTest(unittest.TestCase):
         )
         self.kpi_labels["Account"]["end"] = int(round(time.time() * 1000))
         print("Account  Page")
+        time.sleep(2)
 
         search_button = self.wait.until(
             EC.presence_of_element_located((MobileBy.ACCESSIBILITY_ID, "Search Button"))

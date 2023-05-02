@@ -101,7 +101,7 @@ class ExpediaTest(unittest.TestCase):
         self.driver.terminate_app(self.package)
 
         self.status = "Failed_launch"
-        flights = (MobileBy.ACCESSIBILITY_ID, "Flights")
+        flights = (MobileBy.ACCESSIBILITY_ID, 'Profile. Button')
         txt_no_thanks = (MobileBy.ANDROID_UIAUTOMATOR, 'text("NO THANKS")')
         home_btn = (MobileBy.ACCESSIBILITY_ID, "Home Button")
         launch_element_list = [home_btn,flights, txt_no_thanks]
@@ -115,7 +115,7 @@ class ExpediaTest(unittest.TestCase):
 
         self.kpi_labels["Launch"]["end"] = int(round(time.time() * 1000))
         print("\nApp Launched")
-        time.sleep(2)
+        time.sleep(3)
         if launch_loc == txt_no_thanks:
             print("No Thanks ")
             launch_ele.click()
