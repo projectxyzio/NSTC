@@ -101,10 +101,10 @@ class ExpediaTest(unittest.TestCase):
         self.driver.terminate_app(self.package)
 
         self.status = "Failed_launch"
-        flights = (MobileBy.ACCESSIBILITY_ID, 'Profile. Button')
+        profile = (MobileBy.ACCESSIBILITY_ID, 'Profile. Button')
         txt_no_thanks = (MobileBy.ANDROID_UIAUTOMATOR, 'text("NO THANKS")')
         home_btn = (MobileBy.ACCESSIBILITY_ID, "Home Button")
-        launch_element_list = [home_btn,flights, txt_no_thanks]
+        launch_element_list = [home_btn,profile, txt_no_thanks]
 
         self.kpi_labels["Launch"]["start"] = int(round(time.time() * 1000))
         # Launch App
