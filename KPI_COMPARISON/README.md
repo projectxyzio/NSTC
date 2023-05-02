@@ -6,14 +6,24 @@
 The KPI (Key Performance Indicator) has been evaluated using diverse approaches, and the script will conduct a comparison among them.
 ## 📝 Table of Contents
 
+-  [Requirements](#req)
 - [Visual Page Load Analysis (VPLA) VS  Find Element ](#fe)
 - [ Visual Page Load Analysis (VPLA) VS Document Ready](#dr)
 - [Visual Page Load Analysis (VPLA) VS Find Element Using Multiple Elements](#me)
 - [Run Test On Local Appium Server ](#as)
 - [Reference](#rf)
 
+# :ballot_box_with_check: Requirements<a name = "req"></a>
+- Device Platfrom  - Andoid 
+- Test Application  - Expedia , Chrome Browser  
+- Python  - Version 3.8 or above 
+- Install all python packages before executing to avoid import errors.
 
-# 1.  Visual Page Load Analysis (VPLA) VS  Find Element <a name = "fe"></a>
+		#Execute from root Directory 
+		pip3 install -r requirements.txt
+-  Local Appium Server for test : [Steps to setup Appium Server ](#as)
+
+# :radio_button:  Visual Page Load Analysis (VPLA) VS  Find Element <a name = "fe"></a>
 
 ## App 
 
@@ -68,7 +78,7 @@ The KPI (Key Performance Indicator) has been evaluated using diverse approaches,
 
 <br/>
 
-# 2.  Visual Page Load Analysis (VPLA) VS Document Ready <a name = "dr"></a> 
+# :radio_button:  Visual Page Load Analysis (VPLA) VS Document Ready <a name = "dr"></a> 
 
 ## Website 
 
@@ -117,7 +127,7 @@ python3 VPLA_Doccument_Ready_State.py --udid RZ8NA0Z723M --url https://dev-in-bl
     
 <br/>
 
-# 3.  Visual Page Load Analysis (VPLA) VS Find Element Using Multiple Elements <a name = "me"></a>
+#  :radio_button: Visual Page Load Analysis (VPLA) VS Find Element Using Multiple Elements <a name = "me"></a>
 
 ## App 
 
@@ -181,7 +191,7 @@ python3 VPLA_Multiple_Appium_Element.py --udid RZ8NA0Z723M --url https://dev-in-
   *Note : All Headspin Capabilities will be disabled while running test on local appium server* 
 <br/>
 
-# References <a name = "rf"></a>
+# :books: References <a name = "rf"></a>
 
 1. Document ready state :   [https://developer.mozilla.org/en-US/docs/Web/API/Document/readyState](https://developer.mozilla.org/en-US/docs/Web/API/Document/readyState)
 2. Headspin VIsual page load : [https://ui.headspin.io/docs/visual-loading-metrics#page-load](https://ui.headspin.io/docs/visual-loading-metrics#page-load)
@@ -189,7 +199,7 @@ python3 VPLA_Multiple_Appium_Element.py --udid RZ8NA0Z723M --url https://dev-in-
 
 <br/>
 
-# Tested On  
+# :iphone: Tested On  
 
             ORG : Headspin_APAC_Shared
             Device :SAMSUNG SM-M317  
