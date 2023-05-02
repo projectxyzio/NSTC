@@ -1,0 +1,196 @@
+<h1 align="center">  Readme </h1>
+
+<br/>
+
+# Annotation Comparison  
+The KPI (Key Performance Indicator) has been evaluated using diverse approaches, and the script will conduct a comparison among them.
+## 📝 Table of Contents
+
+- [Visual Page Load Analysis (VPLA) VS  Find Element ](#fe)
+- [ Visual Page Load Analysis (VPLA) VS Document Ready](#dr)
+- [Visual Page Load Analysis (VPLA) VS Find Element Using Multiple Elements](#me)
+- [Run Test On Local Appium Server ](#as)
+- [Reference](#rf)
+
+
+# 1.  Visual Page Load Analysis (VPLA) VS  Find Element <a name = "fe"></a>
+
+## App 
+
+- Expedia Android 
+
+## Run Command 
+
+-  Run Command : python3 VPLA_Appium_Element.py  --udid {Device UDID}  --url  {Appium URL} * 
+
+- ` Note : Before running the  test,  make sure Expedia App is installed and loggedIn.`
+
+- Example : 
+	```
+	python3 VPLA_Appium_Element.py  --udid RZ8NA0Z723M --url https://dev-in-blr-0.headspin.io:3012/v0/<TOKEN>/wd/hub 
+	```
+    
+
+
+* Command line Arguments 
+	
+	
+
+	`--udid` : Device id of the device you wish to start the run.Can be obtained from headspin UI  or locally conected device .
+
+	`--url` : Appium URL of the device you wish to start the run. Can be obtained from the headspin UI or local appium url 
+* Optional Arguments 
+
+
+	`--vpla_only` : ```True``` If only visual page load analysis needed 
+
+	`--appium_element_only` : ```True``` If only Element Based label   needed 
+
+	`--use_local_appium` : ```True``` If  need to use local appium server for test 
+	
+	*Note : Value should be boolean type (True/ False) for optional arguments  ,Default value for optional argument is False* 
+	
+## Sample Sessions 
+    
+- Sample Session : [ https://ui-dev.headspin.io/sessions/b0a83e42-ddae-11ed-b52a-06f0589e70dd/waterfall
+](https://ui-dev.headspin.io/sessions/b0a83e42-ddae-11ed-b52a-06f0589e70dd/waterfall)    
+- Sample Session with appium_element_only : [ https://ui-dev.headspin.io/sessions/af25d956-e37d-11ed-b9cb-06f0589e70dd/waterfall
+](https://ui-dev.headspin.io/sessions/af25d956-e37d-11ed-b9cb-06f0589e70dd/waterfall)    
+- Sample Session with vpla_only : [https://ui-dev.headspin.io/sessions/37091c26-e422-11ed-ba76-06f0589e70dd/waterfall
+](https://ui-dev.headspin.io/sessions/37091c26-e422-11ed-ba76-06f0589e70dd/waterfall)
+  
+## App Link
+    
+- App Link : [https://play.google.com/store/apps/details?id=com.expedia.bookings&hl=en&gl=US](https://play.google.com/store/apps/details?id=com.expedia.bookings&hl=en&gl=US)
+
+
+
+
+<br/>
+
+# 2.  Visual Page Load Analysis (VPLA) VS Document Ready <a name = "dr"></a> 
+
+## Website 
+
+- Amazon Mobile
+
+## Run command 
+
+-  Run Command : python3 VPLA_Doccument_Ready_State.py  --udid {Device UDID}  --url  {Appium URL}
+
+
+- example : 
+```
+python3 VPLA_Doccument_Ready_State.py --udid RZ8NA0Z723M --url https://dev-in-blr-0.headspin.io:3012/v0/<TOKEN>/wd/hub
+```
+   
+* Command line Arguments 
+	
+	`--udid` : Device id of the device you wish to start the run.Can be obtained from headspin  UI or  or locally conected device . 
+
+	`--url` : Appium URL of the device you wish to start the run. Can be obtained from the headspin UI or local appium url 
+	
+*  Optional Arguments 
+
+	`--vpla_only` : ```True``` If only visual page load analysis needed 
+
+	`--document_ready_state_only` : ```True``` If only Document  Ready labels  needed   
+
+	`--use_local_appium` : ```True``` If  need to use local appium server for test 
+
+	*Note : Value should be boolean type (True/ False) for optional arguments  ,Default value for optional argument is False* 
+
+
+## Sample Sessions 
+
+-  Sample Session : [https://ui-dev.headspin.io/sessions/08e597ee-ddaf-11ed-b52b-06f0589e70dd/waterfall](https://ui-dev.headspin.io/sessions/08e597ee-ddaf-11ed-b52b-06f0589e70dd/waterfall)
+
+- Sample Session with document_ready_state_only : [ https://ui-dev.headspin.io/sessions/eb5d5c5e-e37e-11ed-b9cc-06f0589e70dd/waterfall](https://ui-dev.headspin.io/sessions/eb5d5c5e-e37e-11ed-b9cc-06f0589e70dd/waterfall)  
+
+- Sample Session with vpla_only : [https://ui-dev.headspin.io/sessions/341695be-e424-11ed-ba79-06f0589e70dd/waterfall
+](https://ui-dev.headspin.io/sessions/341695be-e424-11ed-ba79-06f0589e70dd/waterfall)
+
+
+## Website Link
+
+- Website Link : https://www.amazon.com/
+    
+<br/>
+
+# 3.  Visual Page Load Analysis (VPLA) VS Find Element Using Multiple Elements <a name = "me"></a>
+
+## App 
+
+- Expedia Android 
+
+## Run Command
+
+-  Run Command : python3 VPLA_Multiple_Appium_Element.py --udid {Device UDID}  --url  {Appium URL}
+
+- ` Note : Before running the  test,  make sure Expedia App is installed and loggedIn.`
+
+- example : 
+```
+python3 VPLA_Multiple_Appium_Element.py --udid RZ8NA0Z723M --url https://dev-in-blr-0.headspin.io:3012/v0/<TOKEN>/wd/hub 
+```
+    
+
+
+* Command line Arguments 
+	
+	
+
+	`--udid` : Device id of the device you wish to start the run.Can be obtained from headspin UI  or locally conected device .
+
+	`--url` : Appium URL of the device you wish to start the run. Can be obtained from the headspin UI or local appium url 
+* Optional Arguments 
+
+	`--vpla_only` : ```True``` If only visual page load analysis needed 
+
+	`--appium_element_only` : ```True``` If only Element Based label   needed 
+
+	`--use_local_appium` : ```True``` If  need to use local appium server for test 
+	
+	*Note : Value should be boolean type (True/ False) for optional arguments  ,Default value for optional argument is False* 
+  
+ ## Sample Sessions 
+ 
+- Sample Session : [ https://ui-dev.headspin.io/sessions/2848212a-e420-11ed-ba70-06f0589e70dd/waterfall
+](https://ui-dev.headspin.io/sessions/2848212a-e420-11ed-ba70-06f0589e70dd/waterfall)    
+
+- Sample Session with appium_element_only : [https://ui-dev.headspin.io/sessions/9d3b2482-e420-11ed-ba72-06f0589e70dd/waterfall
+](https://ui-dev.headspin.io/sessions/9d3b2482-e420-11ed-ba72-06f0589e70dd/waterfall)
+
+- Sample Session with vpla_only : [https://ui-dev.headspin.io/sessions/b7665bd2-e421-11ed-ba73-06f0589e70dd/waterfall
+](https://ui-dev.headspin.io/sessions/b7665bd2-e421-11ed-ba73-06f0589e70dd/waterfall)
+
+## App Link
+       
+- App Link : [https://play.google.com/store/apps/details?id=com.expedia.bookings&hl=en&gl=US](https://play.google.com/store/apps/details?id=com.expedia.bookings&hl=en&gl=US)
+
+
+
+<br/>
+
+# Run Test On Local Appium Server <a name = "as"></a>
+ 
+ * Install and Setup the Appium Server in  the local  ( [Installation Setp ](https://appium.io/docs/en/2.0/quickstart/install/)) , Start the server with command `appium` and get the Appium url. (Example url : `http://0.0.0.0:4723/wd/hub` )
+* Make device available locally and get the device id with command `adb dveices`
+* Pass the Appium url and Device id as argument for test run along with making the flag --local_appium True  for running test on local appium server
+
+  *Note : All Headspin Capabilities will be disabled while running test on local appium server* 
+<br/>
+
+# References <a name = "rf"></a>
+
+1. Document ready state :   [https://developer.mozilla.org/en-US/docs/Web/API/Document/readyState](https://developer.mozilla.org/en-US/docs/Web/API/Document/readyState)
+2. Headspin VIsual page load : [https://ui.headspin.io/docs/visual-loading-metrics#page-load](https://ui.headspin.io/docs/visual-loading-metrics#page-load)
+3. Appium find elements based: [https://www.headspin.io/blog/capturing-app-launch-metrics-on-android](https://www.headspin.io/blog/capturing-app-launch-metrics-on-android)
+
+<br/>
+
+# Tested On  
+
+            ORG : Headspin_APAC_Shared
+            Device :SAMSUNG SM-M317  
+            UDID : RZ8NA0Z723M

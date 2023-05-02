@@ -1,0 +1,151 @@
+# Automation of Expedia application in Java and integrating the same with Extent Reports.
+
+## Step 1: Prerequisites
+### a. Installing JDK and initialising $JAVA_HOME:
+1. Download JDK from the link: [https://www.oracle.com/in/java/technologies/javase/javase-jdk8-downloads.html](https://www.oracle.com/in/java/technologies/javase/javase-jdk8-downloads.html) and install it.
+2. Now the environmental variable JAVA_HOME should be initialised.
+
+Now initialising the $JAVA_HOME variable. This can be done by executing the below commands.
+
+```
+nano .zprofile
+export JAVA_HOME = "$(/usr/libexec/java_home)"
+```
+
+Example
+
+```
+# Setting PATH for Python 3.9
+# The original version is saved in .zprofile.pysave
+export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk-
+11.0.10.jdk/Contents/Ho$
+```
+
+### b. Installing Appium Desktop App:
+1. Download the Appium Desktop app from the link: https://appium.io/downloads.html and install it.
+This can be used to create the automation script.
+
+### c. Installing Code Editor:
+
+1. Here, Visual studio code is used.
+2. Download Visual Studio code from the link: https://code.visualstudio.com/download
+and install it.
+3. You can configure VSC according to your needs such as changing themes, font style,
+size etc., Download the extension "Java extensions" and all the other extensions which support compiling of java code.
+
+**Any other code editor can also be used.**
+
+**Once all the above steps are completed, the setup is ready.**
+
+## Step 2: Adding dependencies:
+1. Create a new maven project in the code editor. Once the project is created few dependencies should be added to pom.xml. The dependencies can be downloaded using the following links. Download the latest stable version available.
+
+* Selenium: [https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java](https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java)
+2. Appium: [https://mvnrepository.com/artifact/io.appium/java-client](https://mvnrepository.com/artifact/io.appium/java-client)
+3. Web Driver Manager: [https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager](https://mvnrepository.com/artifact/io.appium/java-client)
+4. TestNG: [https://mvnrepository.com/artifact/org.testng/testng](https://mvnrepository.com/artifact/io.appium/java-client)
+5. Extent Reports: [https://mvnrepository.com/artifact/com.aventstack/extentreports](https://mvnrepository.com/artifact/io.appium/java-client)
+
+![Not Loading](./readme_images/dependencies.png)
+
+Note: All the dependencies should be added inside tag.
+
+![Not Loading](./readme_images/vs_dependencies.png)
+
+Once the dependencies are added, coding can be started. The code file should be saved in
+src/test/java.
+
+![Not Loading](./readme_images/base_class.png)
+
+## Step 3: Integrating Extent Reports with automation code:
+Create a new class for integration in the same directory where the test class is created.
+
+![Not Loading](./readme_images/extend_report.png)
+
+* Make sure you import the packages in Extent Report class.
+
+```
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.reporter.ExtentSparkReporter;
+```
+
+* Code inside the Extent Report class
+
+```
+public class extentReportDemo {
+
+  public static ExtentReports report(){
+
+      //Creating the reports
+      ExtentReports extent = new ExtentReports();
+      ExtentSparkReporter spark = new
+ExtentSparkReporter("target/Spark.html");
+
+      extent.attachReporter(spark);
+      
+      //Returning the created report
+      return extent;
+      }
+}
+```
+
+**Note: Step 3 to Step 7 should be done in the Base class where the automation code is written.**
+
+* Import the following packages.
+
+```
+// Importing Extent Reports packages
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.Status;
+```
+
+* Inherit Extent Reports class
+
+```
+public class automationCode extends extentReportCode{
+    //your code goes here
+}
+```
+
+* Declare the following variables globally
+
+```
+ExtentReports report;
+ExtentTest test;
+```
+
+* Creating a report by calling the report() function from Extent Report class
+
+```
+report = extentReportDemo.report();
+```
+
+* We can also write logs after a certain test is executed to obtain the result.
+
+```
+try{
+     // Creating the test
+     test = report.createTest( "Automation of Expedia - " +(count));
+     test.log( Status.INFO, "Test just started!" );
+       try{
+          // Test passes
+           test.log( Status.PASS, "PASSED!" );
+       }
+       catch( Exception e ){
+            // Test Fails
+                    test.log( Status.FAIL, "FAILED!" );
+	   }
+	finally{
+	  //Keeping track of number of tests executed
+	  count = count + 1
+	}
+```
+
+* Now if you execute the automation test code, a HTML report will be created in the path you have specified in the above code. In my case the report will be generated in the same directory and will be named as Spark.html.
+
+![Not Loading](./readme_images/report1.png)
+
+![Not Loading](./readme_images/report2.png)
+
+This will be the end product. This is how the report will be generated after the test is executed.

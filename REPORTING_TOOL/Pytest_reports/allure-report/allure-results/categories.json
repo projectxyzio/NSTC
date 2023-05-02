@@ -1,0 +1,21 @@
+[
+    {
+      "name": "Connection Error",
+      "matchedStatuses": ["broken"],
+      "traceRegex": ".*Connection aborted.*" 
+    },
+    {
+      "name": "Product defects",
+      "matchedStatuses": ["failed"]
+    },
+    {
+        "name": "Element not Found Error",
+        "matchedStatuses": ["broken"],
+        "traceRegex": ".*selenium.common.exceptions.TimeoutException.*" 
+      },
+      {
+        "name": "Tested conditions did not meet",
+        "matchedStatuses": ["failed"],
+        "traceRegex": ".*AssertionError.*" 
+      }
+  ]
