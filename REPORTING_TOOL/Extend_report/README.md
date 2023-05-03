@@ -35,9 +35,10 @@ and install it.
 **Once all the above steps are completed, the setup is ready.**
 
 ## Step 2: Adding dependencies:
-1. Create a new maven project in the code editor. Once the project is created few dependencies should be added to pom.xml. The dependencies can be downloaded using the following links. Download the latest stable version available.
+ 
+Create a new maven project in the code editor. Once the project is created few dependencies should be added to pom.xml. The dependencies can be downloaded using the following links. Download the latest stable version available.
 
-* Selenium: [https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java](https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java)
+1. Selenium: [https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java](https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java)
 2. Appium: [https://mvnrepository.com/artifact/io.appium/java-client](https://mvnrepository.com/artifact/io.appium/java-client)
 3. Web Driver Manager: [https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager](https://mvnrepository.com/artifact/io.appium/java-client)
 4. TestNG: [https://mvnrepository.com/artifact/org.testng/testng](https://mvnrepository.com/artifact/io.appium/java-client)
@@ -54,90 +55,7 @@ src/test/java.
 
 ![Not Loading](./readme_images/base_class.png)
 
-## Step 3: Integrating Extent Reports with automation code:
-Create a new class for integration in the same directory where the test class is created.
 
-![Not Loading](./readme_images/extend_report.png)
-
-* Make sure you import the packages in Extent Report class.
-
-```
-import com.aventstack.extentreports.ExtentReports;
-import com.aventstack.extentreports.reporter.ExtentSparkReporter;
-```
-
-* Code inside the Extent Report class
-
-```
-public class extentReportDemo {
-
-  public static ExtentReports report(){
-
-      //Creating the reports
-      ExtentReports extent = new ExtentReports();
-      ExtentSparkReporter spark = new
-ExtentSparkReporter("target/Spark.html");
-
-      extent.attachReporter(spark);
-      
-      //Returning the created report
-      return extent;
-      }
-}
-```
-
-**Note: Step 3 to Step 7 should be done in the Base class where the automation code is written.**
-
-* Import the following packages.
-
-```
-// Importing Extent Reports packages
-import com.aventstack.extentreports.ExtentReports;
-import com.aventstack.extentreports.ExtentTest;
-import com.aventstack.extentreports.Status;
-```
-
-* Inherit Extent Reports class
-
-```
-public class automationCode extends extentReportCode{
-    //your code goes here
-}
-```
-
-* Declare the following variables globally
-
-```
-ExtentReports report;
-ExtentTest test;
-```
-
-* Creating a report by calling the report() function from Extent Report class
-
-```
-report = extentReportDemo.report();
-```
-
-* We can also write logs after a certain test is executed to obtain the result.
-
-```
-try{
-     // Creating the test
-     test = report.createTest( "Automation of Expedia - " +(count));
-     test.log( Status.INFO, "Test just started!" );
-       try{
-          // Test passes
-           test.log( Status.PASS, "PASSED!" );
-       }
-       catch( Exception e ){
-            // Test Fails
-                    test.log( Status.FAIL, "FAILED!" );
-	   }
-	finally{
-	  //Keeping track of number of tests executed
-	  count = count + 1
-	}
-```
 ## Test Execution
 
 - Open **`appiumtests`** Directory in IntelliJ (File -> Open -> Select Directory )  
