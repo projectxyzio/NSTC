@@ -21,7 +21,7 @@ The KPI (Key Performance Indicator) has been evaluated using diverse approaches,
 
 		#Execute from root Directory 
 		pip3 install -r requirements.txt
--  Local Appium Server for test : [Steps to setup Appium Server ](#as)
+-  Local Appium Server for test : [Steps to setup Appium Server ](#as)  (*Optional requirement*)
 
 **Note**  :
 
