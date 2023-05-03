@@ -22,16 +22,13 @@ export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk-
 ```
 
 ### b. Installing Appium Desktop App:
-1. Download the Appium Desktop app from the link: https://appium.io/downloads.html and install it.
+1. Download the Appium Desktop app from the link: [https://appium.io/downloads.html](https://appium.io/downloads.html) and install it.
 This can be used to create the automation script.
 
 ### c. Installing Code Editor:
 
-1. Here, Visual studio code is used.
-2. Download Visual Studio code from the link: https://code.visualstudio.com/download
+1. Download IntelliJ IDEA code from the link: [https://www.jetbrains.com/idea/download/](https://www.jetbrains.com/idea/download/)
 and install it.
-3. You can configure VSC according to your needs such as changing themes, font style,
-size etc., Download the extension "Java extensions" and all the other extensions which support compiling of java code.
 
 **Any other code editor can also be used.**
 
@@ -141,8 +138,15 @@ try{
 	  count = count + 1
 	}
 ```
+## Test Execution
 
-* Now if you execute the automation test code, a HTML report will be created in the path you have specified in the above code. In my case the report will be generated in the same directory and will be named as Spark.html.
+- Open **`appiumtests`** Directory in IntelliJ (File -> Open -> Select Directory )  
+
+-  Update the device id and Appium url  of the device which your performing the test  in **`BaseClass.java`** (path : `appiumtests/src/test/java/in/maven/tests` ) .
+
+- Execut the test file . ( right click on Tests.java -> Run 'Tests' )
+
+-  Now if you execute the automation test code, a HTML report will be created in the path you have specified in the above code. In my case the report will be generated in the same directory (target directory)and will be named as **`Spark.html`**.
 
 ![Not Loading](./readme_images/report1.png)
 
