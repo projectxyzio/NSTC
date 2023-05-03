@@ -80,7 +80,7 @@ The KPI (Key Performance Indicator) has been evaluated using diverse approaches,
 
 ## Website 
 
-- Amazon Mobile
+- Amazon Mobile ([Link]( https://www.amazon.com/))
 
 ## Run command 
 
@@ -119,9 +119,6 @@ python3 VPLA_Doccument_Ready_State.py --udid RZ8NA0Z723M --url https://dev-in-bl
 ](https://ui-dev.headspin.io/sessions/341695be-e424-11ed-ba79-06f0589e70dd/waterfall)
 
 
-## Website Link
-
-- Website Link : https://www.amazon.com/
     
 <br/>
 
