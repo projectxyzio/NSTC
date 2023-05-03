@@ -6,8 +6,8 @@ if command -v python3 &>/dev/null; then
 else
     # Install Python 3
     if [[ $(uname) == "Linux" ]]; then
-        sudo apt-get update
-        sudo apt-get install python3
+        apt-get update
+        apt-get install python3
     elif [[ $(uname) == "Darwin" ]]; then
         brew install python3
     fi
