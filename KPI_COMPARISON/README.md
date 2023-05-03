@@ -22,6 +22,7 @@ The KPI (Key Performance Indicator) has been evaluated using diverse approaches,
 		#Execute from root Directory 
 		pip3 install -r requirements.txt
 -  Local Appium Server for test : [Steps to setup Appium Server ](#as)
+
 **Note**  :
 
 -  To perform the Test Setup on Linux and Mac OS, you can run the `setup.sh` bash script located in the root directory. The script carries out the subsequent actions:
