@@ -36,7 +36,7 @@ The KPI (Key Performance Indicator) has been evaluated using diverse approaches,
 
 # :radio_button:  Visual Page Load Analysis (VPLA) VS  Find Element <a name = "fe"></a>
 
-## App 
+## Testing App 
 
 - Expedia Android ([App Link](https://play.google.com/store/apps/details?id=com.expedia.bookings&hl=en&gl=US))
 
@@ -44,32 +44,35 @@ The KPI (Key Performance Indicator) has been evaluated using diverse approaches,
 
 ## Run Command 
 
--  Run Command : `python3 VPLA_Appium_Element.py  --udid {Device UDID}  --url  {Appium URL}` 
+**Run Command** : `python3 VPLA_Appium_Element.py  --udid {Device UDID}  --url  {Appium URL}` 
 
-- ` Note : Before running the  test,  make sure Expedia App is installed and loggedIn.`
 
-- Example : 
-	```
-	python3 VPLA_Appium_Element.py  --udid RZ8NA0Z723M --url https://dev-in-blr-0.headspin.io:3012/v0/<TOKEN>/wd/hub 
-	```
+**Example** : 
+
+```
+python3 VPLA_Appium_Element.py  --udid RZ8NA0Z723M --url https://dev-in-blr-0.headspin.io:3012/v0/<TOKEN>/wd/hub 
+```
     
 
 
-* Command line Arguments 
+ ` Note : Before running the  test,  make sure Expedia App is installed and loggedIn.`
+
+**Command line Arguments** 
 	
 	
 
-	`--udid` : Device id of the device you wish to start the run.Can be obtained from headspin UI  or locally conected device .
+- `--udid` : Device id of the device you wish to start the run.Can be obtained from headspin UI  or locally conected device .
 
-	`--url` : Appium URL of the device you wish to start the run. Can be obtained from the headspin UI or local appium url 
-* Optional Arguments 
+- `--url` : Appium URL of the device you wish to start the run. Can be obtained from the headspin UI or local appium url 
+
+**Optional Arguments** 
 
 
-	`--vpla_only` : ```True``` If only visual page load analysis needed 
+- `--vpla_only` : ```True``` If only visual page load analysis needed 
 
-	`--appium_element_only` : ```True``` If only Element Based label   needed 
+- `--appium_element_only` : ```True``` If only Element Based label   needed 
 
-	`--use_local_appium` : ```True``` If  need to use local appium server for test 
+- `--use_local_appium` : ```True``` If  need to use local appium server for test 
 	
 	*Note : Value should be boolean type (True/ False) for optional arguments  ,Default value for optional argument is False* 
 	
@@ -89,33 +92,33 @@ The KPI (Key Performance Indicator) has been evaluated using diverse approaches,
 
 # :radio_button:  Visual Page Load Analysis (VPLA) VS Document Ready <a name = "dr"></a> 
 
-## Website 
+## Testing  Website 
 
 - Amazon Mobile ([Link]( https://www.amazon.com/))
 
 ## Run command 
 
--  Run Command : `python3 VPLA_Doccument_Ready_State.py  --udid {Device UDID}  --url  {Appium URL}`
+**Run Command** : `python3 VPLA_Doccument_Ready_State.py  --udid {Device UDID}  --url  {Appium URL}`
 
 
-- example : 
+**Example** : 
 ```
 python3 VPLA_Doccument_Ready_State.py --udid RZ8NA0Z723M --url https://dev-in-blr-0.headspin.io:3012/v0/<TOKEN>/wd/hub
 ```
    
-* Command line Arguments 
+**Command line Arguments** 
 	
-	`--udid` : Device id of the device you wish to start the run.Can be obtained from headspin  UI or  or locally conected device . 
+-	`--udid` : Device id of the device you wish to start the run.Can be obtained from headspin  UI or  or locally conected device . 
 
-	`--url` : Appium URL of the device you wish to start the run. Can be obtained from the headspin UI or local appium url 
+-	`--url` : Appium URL of the device you wish to start the run. Can be obtained from the headspin UI or local appium url 
 	
-*  Optional Arguments 
+**Optional Arguments** 
 
-	`--vpla_only` : ```True``` If only visual page load analysis needed 
+-	`--vpla_only` : ```True``` If only visual page load analysis needed 
 
-	`--document_ready_state_only` : ```True``` If only Document  Ready labels  needed   
+-	`--document_ready_state_only` : ```True``` If only Document  Ready labels  needed   
 
-	`--use_local_appium` : ```True``` If  need to use local appium server for test 
+-	`--use_local_appium` : ```True``` If  need to use local appium server for test 
 
 	*Note : Value should be boolean type (True/ False) for optional arguments  ,Default value for optional argument is False* 
 
@@ -135,7 +138,7 @@ python3 VPLA_Doccument_Ready_State.py --udid RZ8NA0Z723M --url https://dev-in-bl
 
 #  :radio_button: Visual Page Load Analysis (VPLA) VS Find Element Using Multiple Elements <a name = "me"></a>
 
-## App 
+## Testing  App 
 
 - Expedia Android ([App Link](https://play.google.com/store/apps/details?id=com.expedia.bookings&hl=en&gl=US))
 
@@ -143,31 +146,32 @@ python3 VPLA_Doccument_Ready_State.py --udid RZ8NA0Z723M --url https://dev-in-bl
 
 ## Run Command
 
--  Run Command : `python3 VPLA_Multiple_Appium_Element.py --udid {Device UDID}  --url  {Appium URL}`
+**Run Command** : `python3 VPLA_Multiple_Appium_Element.py --udid {Device UDID}  --url  {Appium URL}`
 
-- ` Note : Before running the  test,  make sure Expedia App is installed and loggedIn.`
 
-- example : 
+
+**Example** : 
 ```
 python3 VPLA_Multiple_Appium_Element.py --udid RZ8NA0Z723M --url https://dev-in-blr-0.headspin.io:3012/v0/<TOKEN>/wd/hub 
 ```
+  ` Note : Before running the  test,  make sure Expedia App is installed and loggedIn.`
     
 
 
-* Command line Arguments 
+**Command line Arguments**
 	
 	
 
-	`--udid` : Device id of the device you wish to start the run.Can be obtained from headspin UI  or locally conected device .
+-	`--udid` : Device id of the device you wish to start the run.Can be obtained from headspin UI  or locally conected device .
 
-	`--url` : Appium URL of the device you wish to start the run. Can be obtained from the headspin UI or local appium url 
-* Optional Arguments 
+-	`--url` : Appium URL of the device you wish to start the run. Can be obtained from the headspin UI or local appium url 
+**Optional Arguments** 
 
-	`--vpla_only` : ```True``` If only visual page load analysis needed 
+-	`--vpla_only` : ```True``` If only visual page load analysis needed 
 
-	`--appium_element_only` : ```True``` If only Element Based label   needed 
+-	`--appium_element_only` : ```True``` If only Element Based label   needed 
 
-	`--use_local_appium` : ```True``` If  need to use local appium server for test 
+-	`--use_local_appium` : ```True``` If  need to use local appium server for test 
 	
 	*Note : Value should be boolean type (True/ False) for optional arguments  ,Default value for optional argument is False* 
   
