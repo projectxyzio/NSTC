@@ -4,7 +4,11 @@ import pytest
 import time
 import pytest_html
 import datetime
+import allure
+import base64
 from appium import webdriver
+from allure_commons.types import AttachmentType
+from reportportal_client import RPLogger, RPLogHandler
 from py.xml import html
 import logging
 import configparser
@@ -17,14 +21,11 @@ sys.path.append(SCRIPTS_DIR)
 HTML_REPORTS_DIR = os.path.join(ROOT_DIR, "html_reports")
 ALLURE_REPORTS_DIR = os.path.join(ROOT_DIR, "allure-report")
 ALLURE_RESULTS_DIR = os.path.join(ALLURE_REPORTS_DIR, "allure-results")
+
+from hs_logger import logger, setup_logger
+setup_logger(logger, logging.DEBUG)
 session_data = None
 driver = None
-import logging
-from reportportal_client import RPLogger
-from hs_logger import logger, setup_logger
-
-setup_logger(logger, logging.DEBUG)
-
 
 def pytest_addoption(parser):
     """
@@ -74,18 +75,25 @@ def driver(request):
     appium_url url and returns the driver for automation.
     """
 
-    print("\n")
-    logger.info(f"{'<'*10} Starting Test: {request.node.name} {'>'*10}")
+    print()
+    logger.info(f"\n{'<'*10} Starting Test: {request.node.name} {'>'*10}")
 
     global session_data, driver
-    # creating test class object for saving test values.
+    # creating test class object for saving test variables.
     session_data = request.cls()
-    request.cls.session_data = session_data
     session_data.status = "Test Started"
 
     session_data.appium_url = request.config.getoption("appium_url")
     session_data.udid = request.config.getoption("udid")
-    session_data.desired_capabilities.update({"udid": session_data.udid})
+    
+    session_data.desired_capabilities =   {
+        "automationName": "uiautomator2",
+        "appPackage": session_data.package,
+        "platformName": "android",
+        "appActivity": session_data.activity,
+        "newCommandTimeout": 60,
+        "udid": session_data.udid
+    }
 
     # Adding headspin capabilities, when headspin appium url is used.
     if "headspin" in session_data.appium_url:
@@ -131,7 +139,7 @@ def pytest_configure(config):
     allows you to configure the testing environment and add custom functionality to your tests.
     """
     if config.getoption("allure_report").lower() == "true":
-        config.option.allure_report_dir = 
+        config.option.allure_report_dir = ALLURE_RESULTS_DIR
         logger.info("Allure Report enabled for this execution")
 
     if config.getoption("html_report").lower() == "true":
@@ -187,20 +195,18 @@ def pytest_runtest_makereport(item, call):
     outcome = yield
     report = outcome.get_result()
     extras = getattr(report, "extras", [])
-    report.start_time = session_data.start_time
+    report.start_time = session_data.start_time if session_data else ""
     if report.when == "call":
-        if report.failed and driver:
-            screenshot = driver.get_screenshot_as_base64()
-            extras.append(
-                pytest_html.extras.html(
-                    f'<img src="data:image/png;base64,{screenshot}" style="width:150px;height:300px;" onclick="window.open(this.src)" align="right">'
-                )
-            )
+        if report.failed:
+            logger.info("Test Failed")
+            add_screenshot_to_report(item, extras)
+        else:
+            session_data.status = "Passed"
 
     if report.when == "teardown":
         if hasattr(session_data, "session_id"):
             report.url = (
-                "https://verizon.headspin.io/sessions/"
+                "https://ui-dev.headspin.io/sessions/"
                 + session_data.session_id
                 + "/waterfall"
             )
@@ -269,17 +275,10 @@ def pytest_terminal_summary(terminalreporter, config):
         pass
 
 
-# Logger for ReportPortal
-@pytest.fixture(scope="session")
-def rp_logger():
-    logger = logging.getLogger(__name__)
-    logger.setLevel(logging.DEBUG)
-    logging.setLoggerClass(RPLogger)
-    return logger
-
-
-# add environment for allure report
 def add_allure_environment(data):
+    """
+    Adding environment info to allure report
+    """
     config = configparser.ConfigParser()
     config["CAPS"] = {
         "UDID": data.get("udid"),
@@ -290,3 +289,46 @@ def add_allure_environment(data):
         os.path.join(allure_results_dir, "environment.properties"), "w"
     ) as configfile:
         config.write(configfile)
+
+
+def add_screenshot_to_report(item, extras, name="ScreenShot"):
+    """
+    Adding failed screenshot to the reports
+    """
+    # Capturing Failed screenshot
+    screenshot = (
+                driver.get_screenshot_as_png()
+            )
+    
+    # Adding Failed screenshot to html report
+    if item.config.option.html_report.lower() == "true":
+        logger.info("Screenshot adding to html report ")
+        base_64_screenshot = base64.b64encode(screenshot).decode('utf-8')
+        extras.append(
+            pytest_html.extras.html(
+                f'<img src="data:image/png;base64,{base_64_screenshot}" style="width:150px;height:300px;" onclick="window.open(this.src)" align="right">'
+            )
+        )
+
+    # Adding Failed screenshot to report portal
+    if item.config.option.rp_enabled:
+        logging.setLoggerClass(RPLogger)
+        logger.addHandler(RPLogHandler())
+        logger.info(
+            "Screenshot adding to report portal",
+            attachment={
+                "name": "test_name_screenshot.ini",
+                "data": screenshot,
+                "mime": "application/octet-stream",
+            },
+        ) 
+
+    # Adding Failed screenshot to allure report
+    if item.config.option.allure_report_dir:
+        with allure.step("Screenshot adding to report"):
+            allure.attach(
+                screenshot,
+                name=name,
+                attachment_type=AttachmentType.PNG,
+            )
+    
