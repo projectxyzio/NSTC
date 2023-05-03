@@ -78,13 +78,13 @@ def driver(request):
     """
 
     print()
-    logger.info(f"\n{'<'*10} Starting Test: {request.node.name} {'>'*10}")
+    logger.info(f"{'<'*10} Starting Test: {request.node.name} {'>'*10}")
 
     global session_data, driver
     # creating test class object for saving test variables.
     session_data = request.cls()
-    session_data.status = "Test Started"
 
+    session_data.status = "Test Started"
     session_data.appium_url = request.config.getoption("appium_url")
     session_data.udid = request.config.getoption("udid")
 
@@ -302,7 +302,7 @@ def add_screenshot_to_report(item, extras, name="ScreenShot"):
 
     # Adding Failed screenshot to html report
     if item.config.option.html_report.lower() == "true":
-        logger.info("Screenshot adding to html report ")
+        logger.info("Screenshot adding to html report")
         base_64_screenshot = base64.b64encode(screenshot).decode("utf-8")
         extras.append(
             pytest_html.extras.html(
@@ -325,6 +325,7 @@ def add_screenshot_to_report(item, extras, name="ScreenShot"):
 
     # Adding Failed screenshot to allure report
     if item.config.option.allure_report_dir:
+        logger.info("Screenshot adding to allure report")
         with allure.step("Screenshot adding to report"):
             allure.attach(
                 screenshot,
