@@ -37,9 +37,9 @@ pip3 install virtualenv
 
 #Creating Python Virtaul ENV 
 echo "Creating  Python Virtaul ENV "
-python3  -m virtualenv env3 &>/dev/null; 
+python3  -m virtualenv env3 &>/dev/null
 source env3/bin/activate 
-pip3 install -r requirements.txt &>/dev/null; 
+pip3 install -r requirements.txt &>/dev/null 
 deactivate 
 echo "All Required  Python Packages Installed"
 
