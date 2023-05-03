@@ -1,2 +1,0 @@
-[32mINFO    [0m conftest:demo_script_test.py:75 Starting Test
-[32mINFO    [0m conftest:demo_script_test.py:100 Test Ended

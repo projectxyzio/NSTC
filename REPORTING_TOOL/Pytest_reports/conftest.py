@@ -16,11 +16,13 @@ SCRIPTS_DIR = os.path.join(ROOT_DIR, "scripts")
 sys.path.append(SCRIPTS_DIR)
 HTML_REPORTS_DIR = os.path.join(ROOT_DIR, "html_reports")
 session_data = None
-driver=None
+driver = None
 import logging
 from reportportal_client import RPLogger
 from hs_logger import logger, setup_logger
+
 setup_logger(logger, logging.DEBUG)
+
 
 def pytest_addoption(parser):
     """
@@ -70,6 +72,7 @@ def driver(request):
     session_data.appium_url = request.config.getoption("appium_url")
     session_data.udid = request.config.getoption("udid")
     session_data.desired_capabilities.update({"udid": session_data.udid})
+
     hs_caps = {
         "headspin:capture.video": True,
         "headspin:testName": session_data.test_name,
@@ -77,29 +80,38 @@ def driver(request):
     }
     if "headspin" in session_data.appium_url:
         session_data.desired_capabilities.update(hs_caps)
+
+    print("\n") 
+    logger.info(f"{'<'*10} Starting Test: {request.node.name} {'>'*10}")
+
     session_data.start_time = datetime.datetime.utcnow()
-    print(session_data.appium_url,"\n",session_data.desired_capabilities)
     driver = webdriver.Remote(
         command_executor=session_data.appium_url,
         desired_capabilities=session_data.desired_capabilities,
     )
+
     session_data.session_id = driver.session_id
-    add_allure_enviornment(session_data.desired_capabilities)
+    add_allure_environment(session_data.desired_capabilities)
+
     yield driver
+    # print("\n")
     logger.info("Teardown Started")
+
     if "pass" in session_data.status.lower():
         status = "Passed"
     else:
         status = "Failed"
+
     if "headspin" in session_data.appium_url:
-        driver.execute_script('headspin:quitSession', {'status': status})
+        driver.execute_script("headspin:quitSession", {"status": status})
     else:
         driver.quit()
+    logger.info("Teardown Ended")
 
 # ######################################## HTML REPORT ENHANCING HOOKS ########################################
 @pytest.hookimpl(tryfirst=True)
 def pytest_configure(config):
-    if config.getoption("html_report").lower()=="true":
+    if config.getoption("html_report").lower() == "true":
         if not os.path.exists(HTML_REPORTS_DIR):
             os.makedirs(HTML_REPORTS_DIR)
 
@@ -107,27 +119,35 @@ def pytest_configure(config):
         config.option.htmlpath = os.path.join(HTML_REPORTS_DIR, report_name)
         config.option.self_contained_html = True
 
+
 def pytest_html_report_title(report):
     """
-    By default the report title will be the filename of the report, 
+    By default the report title will be the filename of the report,
     you can edit it by using the pytest_html_report_title hook:
     """
-    report.title = f"Sample Report Project, ID : {report.title.strip('.html').split('_')[-1]}"
+    report.title = (
+        f"Sample Report Project, ID : {report.title.strip('.html').split('_')[-1]}"
+    )
+
 
 @pytest.hookimpl(tryfirst=True)
 def pytest_sessionfinish(session, exitstatus):
     """
     Modifying the environment table in html report
     """
-    session.config._metadata["Additional Environment Key"] = "Additional Environment Value"
+    session.config._metadata[
+        "Additional Environment Key"
+    ] = "Additional Environment Value"
+
 
 @pytest.mark.optionalhook
 def pytest_html_results_summary(prefix, summary, postfix):
-    ''' modifying the summary in pytest html report'''
+    """modifying the summary in pytest html report"""
 
     prefix.extend([html.h3("Adding prefix message")])
     summary.extend([html.h3("Adding summary message")])
     postfix.extend([html.h3("Adding postfix message")])
+
 
 @pytest.hookimpl(tryfirst=True, hookwrapper=True)
 def pytest_runtest_makereport(item, call):
@@ -143,7 +163,11 @@ def pytest_runtest_makereport(item, call):
     if report.when == "call":
         if report.failed and driver:
             screenshot = driver.get_screenshot_as_base64()
-            extras.append(pytest_html.extras.html(f'<img src="data:image/png;base64,{screenshot}" style="width:150px;height:300px;" onclick="window.open(this.src)" align="right">'))
+            extras.append(
+                pytest_html.extras.html(
+                    f'<img src="data:image/png;base64,{screenshot}" style="width:150px;height:300px;" onclick="window.open(this.src)" align="right">'
+                )
+            )
 
     if report.when == "teardown":
         if hasattr(session_data, "session_id"):
@@ -154,24 +178,27 @@ def pytest_runtest_makereport(item, call):
             )
     report.extra = extras
 
+
 def pytest_html_results_table_header(cells):
     """
     Modifying(adding/removing) the Results table header.
     """
-    cells.insert(1, html.th('Start Time', class_='sortable time', col='time'))
-    cells.insert(3, html.th('Description'))
-    cells.insert(5, html.th('Link', class_='link', col='link'))
+    cells.insert(1, html.th("Start Time", class_="sortable time", col="time"))
+    cells.insert(3, html.th("Description"))
+    cells.insert(5, html.th("Link", class_="link", col="link"))
     cells.pop()
+
 
 def pytest_html_results_table_row(report, cells):
     """
     Modifying(adding/removing) the Results table row.
     """
-    cells.insert(1, html.td(report.start_time, class_='col-time'))
+    cells.insert(1, html.td(report.start_time, class_="col-time"))
     cells.insert(3, html.td("A Sample Description"))
     if hasattr(report, "url"):
         cells.insert(5, html.td(html.a(report.url, href=report.url)))
     cells.pop()
+
 
 def pytest_html_results_table_html(report, data):
     """
@@ -182,10 +209,10 @@ def pytest_html_results_table_html(report, data):
         data.append("Appended Sample Text For Passed Session Only")
 
 
-
 # ######################################## END END END END END END END ########################################
 
-#Logger for ReportPortal 
+
+# Logger for ReportPortal
 @pytest.fixture(scope="session")
 def rp_logger():
     logger = logging.getLogger(__name__)
@@ -193,10 +220,39 @@ def rp_logger():
     logging.setLoggerClass(RPLogger)
     return logger
 
-#add environment for allure report
-def add_allure_enviornment(data):
+
+# add environment for allure report
+def add_allure_environment(data):
     config = configparser.ConfigParser()
-    config['CAPS'] = {'UDID': data.get('udid'),'Platform_Name':  data.get('platformName')}
-    with open('allure-report/allure-results/environment.properties', 'w') as configfile:
+    config["CAPS"] = {
+        "UDID": data.get("udid"),
+        "Platform_Name": data.get("platformName"),
+    }
+    with open("allure-report/allure-results/environment.properties", "w") as configfile:
         config.write(configfile)
 
+
+def pytest_terminal_summary(terminalreporter, config):
+    try:
+        if config.option.html_report.lower() == "true":
+            terminalreporter.write_line(
+                "Note: To view the html report, open the file at the above location."
+            )
+    except:
+        pass
+
+    try:
+        if config.option.rp_enabled:
+            terminalreporter.write_line(
+                "- report generated: To view this report, please open this link (https://demo.reportportal.io/ui/#default_personal/launches/19).\nNote: When you are not logged in, just click the login button."
+            )
+    except:
+        pass
+
+    try:
+        if config.option.allure_report_dir:
+            terminalreporter.write_line(
+                "- report generated: The report will be opened in a web browser once the command(allure serve allure-report/allure-results) is run."
+            )
+    except:
+        pass
