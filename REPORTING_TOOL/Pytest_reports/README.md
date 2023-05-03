@@ -27,7 +27,7 @@ This is a Pytest sample project, which uses different Reporting Tools.
 
 5.   Run Test from  **`Pytest_reports`** Directory .
 
-6.  For Running the test with  Local Appium Server
+6.  For Running the test with  Local Appium Server ( *Optional requirement* )
 	- Install and Setup the Appium Server in  the local  ( [Installation Setp ](https://appium.io/docs/en/2.0/quickstart/install/)) , Start the server with command `appium` and get the Appium url. (Example url : `http://0.0.0.0:4723/wd/hub` )
 	-  Make device available locally and get the device id with command `adb dveices`
 
