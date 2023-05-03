@@ -37,7 +37,7 @@ pip3 install virtualenv
 
 #Creating Python Virtaul ENV 
 echo "Creating  Python Virtaul ENV "
-python3  -m virtualenv env3
+python3  -m virtualenv env3 &>/dev/null; 
 source env3/bin/activate 
 pip3 install -r requirements.txt &>/dev/null; 
 deactivate 
@@ -66,4 +66,4 @@ else
     fi
 fi
 
-echo "Activate python virtaul env with :  source env3/bin/activate "
+echo -e " \n Activate python virtaul env with :  source env3/bin/activate "
