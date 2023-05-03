@@ -1,7 +1,7 @@
 pytest==7.2.0
 requests==2.28.1
 Appium-Python-Client==2.7.1
-reportportal-client
-pytest-reportportal
+reportportal-client==5.3.1
+pytest-reportportal==5.1.7
 pytest-html==3.2.0
-allure-pytest
+allure-pytest==2.13.2

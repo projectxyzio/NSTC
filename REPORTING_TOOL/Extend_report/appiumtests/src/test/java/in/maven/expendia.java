@@ -36,7 +36,7 @@ public class expendia {
 
     public static void test() throws Exception{
 
-        URL url = new URL("https://in-bgl.headspin.io:3010/v0/da8072ab2ea94d239bfa9854089a9708/wd/hub");
+        URL url = new URL("https://in-bgl.headspin.io:3010/v0/<TOKEN>/wd/hub");
         // String myApp = "/Users/keer/Documents/Java/Expedia.apk";
 
         // DesiredCapabilities capabilities = new DesiredCapabilities();
