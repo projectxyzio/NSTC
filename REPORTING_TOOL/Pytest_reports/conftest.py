@@ -23,9 +23,11 @@ ALLURE_REPORTS_DIR = os.path.join(ROOT_DIR, "allure-report")
 ALLURE_RESULTS_DIR = os.path.join(ALLURE_REPORTS_DIR, "allure-results")
 
 from hs_logger import logger, setup_logger
+
 setup_logger(logger, logging.DEBUG)
 session_data = None
 driver = None
+
 
 def pytest_addoption(parser):
     """
@@ -85,14 +87,14 @@ def driver(request):
 
     session_data.appium_url = request.config.getoption("appium_url")
     session_data.udid = request.config.getoption("udid")
-    
-    session_data.desired_capabilities =   {
+
+    session_data.desired_capabilities = {
         "automationName": "uiautomator2",
         "appPackage": session_data.package,
         "platformName": "android",
         "appActivity": session_data.activity,
         "newCommandTimeout": 60,
-        "udid": session_data.udid
+        "udid": session_data.udid,
     }
 
     # Adding headspin capabilities, when headspin appium url is used.
@@ -296,14 +298,12 @@ def add_screenshot_to_report(item, extras, name="ScreenShot"):
     Adding failed screenshot to the reports
     """
     # Capturing Failed screenshot
-    screenshot = (
-                driver.get_screenshot_as_png()
-            )
-    
+    screenshot = driver.get_screenshot_as_png()
+
     # Adding Failed screenshot to html report
     if item.config.option.html_report.lower() == "true":
         logger.info("Screenshot adding to html report ")
-        base_64_screenshot = base64.b64encode(screenshot).decode('utf-8')
+        base_64_screenshot = base64.b64encode(screenshot).decode("utf-8")
         extras.append(
             pytest_html.extras.html(
                 f'<img src="data:image/png;base64,{base_64_screenshot}" style="width:150px;height:300px;" onclick="window.open(this.src)" align="right">'
@@ -321,7 +321,7 @@ def add_screenshot_to_report(item, extras, name="ScreenShot"):
                 "data": screenshot,
                 "mime": "application/octet-stream",
             },
-        ) 
+        )
 
     # Adding Failed screenshot to allure report
     if item.config.option.allure_report_dir:
@@ -331,4 +331,3 @@ def add_screenshot_to_report(item, extras, name="ScreenShot"):
                 name=name,
                 attachment_type=AttachmentType.PNG,
             )
-    
