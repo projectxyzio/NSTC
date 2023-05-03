@@ -46,27 +46,9 @@ class TestDemoScript:
             self.session_data.status = "Passed"
             logger.info("Test Passed")
         except Exception as e:
-            # logger.info("Test Failed")
-            # logger.info("Taking Failed screenshot")
-            # self.allureSS("ScreenShot")
-            # try:
-            #     screenshot = (
-            #         self.driver.get_screenshot_as_png()
-            #     )  # Capture screenshot and attach to Allure Report if test fails
-            #     rp_logger.info(
-            #         "Some Text Here",
-            #         attachment={
-            #             "name": "test_name_screenshot.ini",
-            #             "data": screenshot,
-            #             "mime": "application/octet-stream",
-            #         },
-            #     )  # Capture screenshot and attach to ReportPortal if test fails
-            # except:
-            #     pass
             self.add_screenshot_to_report(rp_logger)
 
             raise e
-        
 
     # mark.issue :  Adds the details to ReportPortal if the test fails
     pytest.mark.issue(issue_id="111111", reason="Locator bug", issue_type="AB")
@@ -93,7 +75,7 @@ class TestDemoScript:
         except Exception as e:
             self.add_screenshot_to_report(rp_logger)
             raise e
-        
+
     def add_screenshot_to_report(self, rp_logger, name="ScreenShot"):
         logger.info("Test Failed")
         logger.info("Taking Failed screenshot")

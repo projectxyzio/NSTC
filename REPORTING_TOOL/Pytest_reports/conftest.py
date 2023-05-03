@@ -15,6 +15,8 @@ sys.path.append(ROOT_DIR)
 SCRIPTS_DIR = os.path.join(ROOT_DIR, "scripts")
 sys.path.append(SCRIPTS_DIR)
 HTML_REPORTS_DIR = os.path.join(ROOT_DIR, "html_reports")
+ALLURE_REPORTS_DIR = os.path.join(ROOT_DIR, "allure-report")
+ALLURE_RESULTS_DIR = os.path.join(ALLURE_REPORTS_DIR, "allure-results")
 session_data = None
 driver = None
 import logging
@@ -26,13 +28,12 @@ setup_logger(logger, logging.DEBUG)
 
 def pytest_addoption(parser):
     """
-    This pytest hook is used to define additional command line arguments.
+    allows you to add custom command line options to your tests.
     """
     parser.addoption(
         "--appium_url",
         dest="appium_url",
         type=str,
-        nargs="?",
         default="",
         required=True,
         help="appium_url",
@@ -42,7 +43,6 @@ def pytest_addoption(parser):
         "--udid",
         dest="udid",
         type=str,
-        nargs="?",
         default="",
         required=True,
         help="udid",
@@ -56,6 +56,15 @@ def pytest_addoption(parser):
         required=False,
         help="html_report",
     )
+    parser.addoption(
+        "--allure_report",
+        dest="allure_report",
+        type=str,
+        nargs="?",
+        default="",
+        required=False,
+        help="allure_report",
+    )
 
 
 @pytest.fixture
@@ -64,27 +73,32 @@ def driver(request):
     driver fixture create a appium driver with the capabilities and
     appium_url url and returns the driver for automation.
     """
+
+    print("\n")
+    logger.info(f"{'<'*10} Starting Test: {request.node.name} {'>'*10}")
+
     global session_data, driver
     # creating test class object for saving test values.
     session_data = request.cls()
     request.cls.session_data = session_data
-    session_data.status = "Started"
+    session_data.status = "Test Started"
+
     session_data.appium_url = request.config.getoption("appium_url")
     session_data.udid = request.config.getoption("udid")
     session_data.desired_capabilities.update({"udid": session_data.udid})
 
-    hs_caps = {
-        "headspin:capture.video": True,
-        "headspin:testName": session_data.test_name,
-        "headspin:session.name": session_data.test_name,
-    }
+    # Adding headspin capabilities, when headspin appium url is used.
     if "headspin" in session_data.appium_url:
-        session_data.desired_capabilities.update(hs_caps)
-
-    print("\n") 
-    logger.info(f"{'<'*10} Starting Test: {request.node.name} {'>'*10}")
+        session_data.desired_capabilities.update(
+            {
+                "headspin:capture.video": True,
+                "headspin:testName": session_data.test_name,
+                "headspin:session.name": session_data.test_name,
+            }
+        )
 
     session_data.start_time = datetime.datetime.utcnow()
+    # Connect to Appium server and launch the YouTube app
     driver = webdriver.Remote(
         command_executor=session_data.appium_url,
         desired_capabilities=session_data.desired_capabilities,
@@ -94,7 +108,6 @@ def driver(request):
     add_allure_environment(session_data.desired_capabilities)
 
     yield driver
-    # print("\n")
     logger.info("Teardown Started")
 
     if "pass" in session_data.status.lower():
@@ -102,15 +115,25 @@ def driver(request):
     else:
         status = "Failed"
 
+    # Quit driver and set session status when headspin webdriver url is used
     if "headspin" in session_data.appium_url:
         driver.execute_script("headspin:quitSession", {"status": status})
     else:
         driver.quit()
+
     logger.info("Teardown Ended")
+
 
 # ######################################## HTML REPORT ENHANCING HOOKS ########################################
 @pytest.hookimpl(tryfirst=True)
 def pytest_configure(config):
+    """
+    allows you to configure the testing environment and add custom functionality to your tests.
+    """
+    if config.getoption("allure_report").lower() == "true":
+        config.option.allure_report_dir = 
+        logger.info("Allure Report enabled for this execution")
+
     if config.getoption("html_report").lower() == "true":
         if not os.path.exists(HTML_REPORTS_DIR):
             os.makedirs(HTML_REPORTS_DIR)
@@ -118,12 +141,15 @@ def pytest_configure(config):
         report_name = f"HTML_Sample_Report_{int(time.time()*1000)}.html"
         config.option.htmlpath = os.path.join(HTML_REPORTS_DIR, report_name)
         config.option.self_contained_html = True
+        logger.info("Pytest HTML Report enabled for this execution")
+
+    if config.getoption("rp_enabled"):
+        logger.info("Report Portal enabled for this execution")
 
 
 def pytest_html_report_title(report):
     """
-    By default the report title will be the filename of the report,
-    you can edit it by using the pytest_html_report_title hook:
+    allows you to update the HTML Report title
     """
     report.title = (
         f"Sample Report Project, ID : {report.title.strip('.html').split('_')[-1]}"
@@ -133,7 +159,8 @@ def pytest_html_report_title(report):
 @pytest.hookimpl(tryfirst=True)
 def pytest_sessionfinish(session, exitstatus):
     """
-    Modifying the environment table in html report
+    allows you to perform custom actions at the end of a test session.
+    Here we are updating the environment table in html report
     """
     session.config._metadata[
         "Additional Environment Key"
@@ -142,7 +169,9 @@ def pytest_sessionfinish(session, exitstatus):
 
 @pytest.mark.optionalhook
 def pytest_html_results_summary(prefix, summary, postfix):
-    """modifying the summary in pytest html report"""
+    """
+    allows you to customize the summary information that is displayed in the HTML report.
+    """
 
     prefix.extend([html.h3("Adding prefix message")])
     summary.extend([html.h3("Adding summary message")])
@@ -152,7 +181,6 @@ def pytest_html_results_summary(prefix, summary, postfix):
 @pytest.hookimpl(tryfirst=True, hookwrapper=True)
 def pytest_runtest_makereport(item, call):
     """
-    This hook is executed after setup, call and teardown.
     This is useful to add extra test information to the results table.
     Here screenshot added to the html report for failed test.
     """
@@ -212,27 +240,10 @@ def pytest_html_results_table_html(report, data):
 # ######################################## END END END END END END END ########################################
 
 
-# Logger for ReportPortal
-@pytest.fixture(scope="session")
-def rp_logger():
-    logger = logging.getLogger(__name__)
-    logger.setLevel(logging.DEBUG)
-    logging.setLoggerClass(RPLogger)
-    return logger
-
-
-# add environment for allure report
-def add_allure_environment(data):
-    config = configparser.ConfigParser()
-    config["CAPS"] = {
-        "UDID": data.get("udid"),
-        "Platform_Name": data.get("platformName"),
-    }
-    with open("allure-report/allure-results/environment.properties", "w") as configfile:
-        config.write(configfile)
-
-
 def pytest_terminal_summary(terminalreporter, config):
+    """
+    Adding additional information to the terminal summary section.
+    """
     try:
         if config.option.html_report.lower() == "true":
             terminalreporter.write_line(
@@ -256,3 +267,26 @@ def pytest_terminal_summary(terminalreporter, config):
             )
     except:
         pass
+
+
+# Logger for ReportPortal
+@pytest.fixture(scope="session")
+def rp_logger():
+    logger = logging.getLogger(__name__)
+    logger.setLevel(logging.DEBUG)
+    logging.setLoggerClass(RPLogger)
+    return logger
+
+
+# add environment for allure report
+def add_allure_environment(data):
+    config = configparser.ConfigParser()
+    config["CAPS"] = {
+        "UDID": data.get("udid"),
+        "Platform_Name": data.get("platformName"),
+    }
+    allure_results_dir = os.path.join(ALLURE_REPORTS_DIR, "allure-results")
+    with open(
+        os.path.join(allure_results_dir, "environment.properties"), "w"
+    ) as configfile:
+        config.write(configfile)
