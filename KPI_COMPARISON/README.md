@@ -22,6 +22,16 @@ The KPI (Key Performance Indicator) has been evaluated using diverse approaches,
 		#Execute from root Directory 
 		pip3 install -r requirements.txt
 -  Local Appium Server for test : [Steps to setup Appium Server ](#as)
+**Note**  :
+
+-  To perform the Test Setup on Linux and Mac OS, you can run the `setup.sh` bash script located in the root directory. The script carries out the subsequent actions:
+
+	- Verify whether python3 is pre-installed or not, and if it is not installed, proceed with its installation.
+	- Set up a python virtual environment named **`env3`** and install all the necessary python packages within it.   
+-  To run the **`setup.sh`** bash script, it is necessary to grant executable permission by using the command **`chmod +x setup.sh`** beforehand.
+- Execute the setup.sh with command :  **`bash setup.sh`**  
+- python virtual environment can be activate with the command : **`source env3/bin/activate `**
+- *The `setup.sh` script is not compatible with Windows operating systems and cannot be executed on them.*
 
 # :radio_button:  Visual Page Load Analysis (VPLA) VS  Find Element <a name = "fe"></a>
 
