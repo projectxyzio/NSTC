@@ -27,11 +27,13 @@ The KPI (Key Performance Indicator) has been evaluated using diverse approaches,
 
 ## App 
 
-- Expedia Android 
+- Expedia Android ([App Link](https://play.google.com/store/apps/details?id=com.expedia.bookings&hl=en&gl=US))
+
+
 
 ## Run Command 
 
--  Run Command : python3 VPLA_Appium_Element.py  --udid {Device UDID}  --url  {Appium URL} * 
+-  Run Command : `python3 VPLA_Appium_Element.py  --udid {Device UDID}  --url  {Appium URL}` 
 
 - ` Note : Before running the  test,  make sure Expedia App is installed and loggedIn.`
 
@@ -69,10 +71,6 @@ The KPI (Key Performance Indicator) has been evaluated using diverse approaches,
 - Sample Session with vpla_only : [https://ui-dev.headspin.io/sessions/37091c26-e422-11ed-ba76-06f0589e70dd/waterfall
 ](https://ui-dev.headspin.io/sessions/37091c26-e422-11ed-ba76-06f0589e70dd/waterfall)
   
-## App Link
-    
-- App Link : [https://play.google.com/store/apps/details?id=com.expedia.bookings&hl=en&gl=US](https://play.google.com/store/apps/details?id=com.expedia.bookings&hl=en&gl=US)
-
 
 
 
@@ -86,7 +84,7 @@ The KPI (Key Performance Indicator) has been evaluated using diverse approaches,
 
 ## Run command 
 
--  Run Command : python3 VPLA_Doccument_Ready_State.py  --udid {Device UDID}  --url  {Appium URL}
+-  Run Command : `python3 VPLA_Doccument_Ready_State.py  --udid {Device UDID}  --url  {Appium URL}`
 
 
 - example : 
@@ -131,11 +129,13 @@ python3 VPLA_Doccument_Ready_State.py --udid RZ8NA0Z723M --url https://dev-in-bl
 
 ## App 
 
-- Expedia Android 
+- Expedia Android ([App Link](https://play.google.com/store/apps/details?id=com.expedia.bookings&hl=en&gl=US))
+
+
 
 ## Run Command
 
--  Run Command : python3 VPLA_Multiple_Appium_Element.py --udid {Device UDID}  --url  {Appium URL}
+-  Run Command : `python3 VPLA_Multiple_Appium_Element.py --udid {Device UDID}  --url  {Appium URL}`
 
 - ` Note : Before running the  test,  make sure Expedia App is installed and loggedIn.`
 
@@ -173,11 +173,6 @@ python3 VPLA_Multiple_Appium_Element.py --udid RZ8NA0Z723M --url https://dev-in-
 
 - Sample Session with vpla_only : [https://ui-dev.headspin.io/sessions/b7665bd2-e421-11ed-ba73-06f0589e70dd/waterfall
 ](https://ui-dev.headspin.io/sessions/b7665bd2-e421-11ed-ba73-06f0589e70dd/waterfall)
-
-## App Link
-       
-- App Link : [https://play.google.com/store/apps/details?id=com.expedia.bookings&hl=en&gl=US](https://play.google.com/store/apps/details?id=com.expedia.bookings&hl=en&gl=US)
-
 
 
 <br/>
