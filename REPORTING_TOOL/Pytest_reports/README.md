@@ -136,7 +136,7 @@ Allure is a powerful reporting framework for test automation that provides detai
 	
 	
 ```
- #Skip if requirement.txt is already installed	
+ #Skip this steps if initail setup is already  done with setup.sh or requirements.tx
  pip3 install allure-pytest
 
 ```
