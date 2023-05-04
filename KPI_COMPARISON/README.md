@@ -91,8 +91,8 @@ python3 VPLA_Appium_Element.py  --udid RZ8NA0Z723M --url https://dev-in-blr-0.he
 	
 ## Sample Sessions 
     
-- Sample Session : [ https://ui-dev.headspin.io/sessions/225463ca-ea45-11ed-9ea5-0a4e39ac9ea5/waterfall
-](https://ui-dev.headspin.io/sessions/225463ca-ea45-11ed-9ea5-0a4e39ac9ea5/waterfall)    
+- Sample Session : [https://ui-dev.headspin.io/sessions/dfbd4956-ea61-11ed-9eb9-0a4e39ac9ea5/waterfall
+](https://ui-dev.headspin.io/sessions/dfbd4956-ea61-11ed-9eb9-0a4e39ac9ea5/waterfall)    
 - Sample Session with appium_element_only : [ https://ui-dev.headspin.io/sessions/c3fcf602-ea44-11ed-9ea4-0a4e39ac9ea5/waterfall
 ](https://ui-dev.headspin.io/sessions/c3fcf602-ea44-11ed-9ea4-0a4e39ac9ea5/waterfall)    
 - Sample Session with vpla_only : [https://ui-dev.headspin.io/sessions/c1648774-ea45-11ed-9ea6-0a4e39ac9ea5/waterfall
