@@ -37,10 +37,13 @@ The KPI (Key Performance Indicator) has been evaluated using diverse approaches,
 
 	- Verify whether python3 is pre-installed or not, and if it is not installed, proceed with its installation.
 	- Set up a python virtual environment named **`env3`** and install all the necessary python packages within it.   
--  To run the **`setup.sh`** bash script, it is necessary to grant executable permission by using the command **`chmod +x setup.sh`** beforehand.
-- Execute the setup.sh with command :  **`bash setup.sh`**  
-- python virtual environment can be activate with the command : **`source env3/bin/activate `**
-- *The `setup.sh` script is not compatible with Windows operating systems and cannot be executed on them.*
+
+**Setps:** 
+1.  To run the **`setup.sh`** bash script, it is necessary to grant executable permission by using the command **`chmod +x setup.sh`** beforehand.
+2. Execute the setup.sh with command :  **`bash setup.sh`**  
+3. python virtual environment can be activate with the command : **`source env3/bin/activate `**
+ 
+ *Note : The `setup.sh` script is not compatible with Windows operating systems and cannot be executed on them.*
 
 # :radio_button:  Visual Page Load Analysis (VPLA) VS  Find Element <a name = "fe"></a>
 
@@ -86,12 +89,12 @@ python3 VPLA_Appium_Element.py  --udid RZ8NA0Z723M --url https://dev-in-blr-0.he
 	
 ## Sample Sessions 
     
-- Sample Session : [ https://ui-dev.headspin.io/sessions/b0a83e42-ddae-11ed-b52a-06f0589e70dd/waterfall
-](https://ui-dev.headspin.io/sessions/b0a83e42-ddae-11ed-b52a-06f0589e70dd/waterfall)    
-- Sample Session with appium_element_only : [ https://ui-dev.headspin.io/sessions/af25d956-e37d-11ed-b9cb-06f0589e70dd/waterfall
-](https://ui-dev.headspin.io/sessions/af25d956-e37d-11ed-b9cb-06f0589e70dd/waterfall)    
-- Sample Session with vpla_only : [https://ui-dev.headspin.io/sessions/37091c26-e422-11ed-ba76-06f0589e70dd/waterfall
-](https://ui-dev.headspin.io/sessions/37091c26-e422-11ed-ba76-06f0589e70dd/waterfall)
+- Sample Session : [ https://ui-dev.headspin.io/sessions/225463ca-ea45-11ed-9ea5-0a4e39ac9ea5/waterfall
+](https://ui-dev.headspin.io/sessions/225463ca-ea45-11ed-9ea5-0a4e39ac9ea5/waterfall)    
+- Sample Session with appium_element_only : [ https://ui-dev.headspin.io/sessions/c3fcf602-ea44-11ed-9ea4-0a4e39ac9ea5/waterfall
+](https://ui-dev.headspin.io/sessions/c3fcf602-ea44-11ed-9ea4-0a4e39ac9ea5/waterfall)    
+- Sample Session with vpla_only : [https://ui-dev.headspin.io/sessions/c1648774-ea45-11ed-9ea6-0a4e39ac9ea5/waterfall
+](https://ui-dev.headspin.io/sessions/c1648774-ea45-11ed-9ea6-0a4e39ac9ea5/waterfall)
   
 
 
@@ -185,14 +188,14 @@ python3 VPLA_Multiple_Appium_Element.py --udid RZ8NA0Z723M --url https://dev-in-
   
  ## Sample Sessions 
  
-- Sample Session : [ https://ui-dev.headspin.io/sessions/2848212a-e420-11ed-ba70-06f0589e70dd/waterfall
-](https://ui-dev.headspin.io/sessions/2848212a-e420-11ed-ba70-06f0589e70dd/waterfall)    
+- Sample Session : [ https://ui-dev.headspin.io/sessions/de0f755c-ea43-11ed-9ea2-0a4e39ac9ea5/waterfall
+](https://ui-dev.headspin.io/sessions/de0f755c-ea43-11ed-9ea2-0a4e39ac9ea5/waterfall)    
 
-- Sample Session with appium_element_only : [https://ui-dev.headspin.io/sessions/9d3b2482-e420-11ed-ba72-06f0589e70dd/waterfall
-](https://ui-dev.headspin.io/sessions/9d3b2482-e420-11ed-ba72-06f0589e70dd/waterfall)
+- Sample Session with appium_element_only : [https://ui-dev.headspin.io/sessions/23da8c0c-ea44-11ed-9ea2-0a4e39ac9ea5/waterfall
+](https://ui-dev.headspin.io/sessions/23da8c0c-ea44-11ed-9ea2-0a4e39ac9ea5/waterfall)
 
-- Sample Session with vpla_only : [https://ui-dev.headspin.io/sessions/b7665bd2-e421-11ed-ba73-06f0589e70dd/waterfall
-](https://ui-dev.headspin.io/sessions/b7665bd2-e421-11ed-ba73-06f0589e70dd/waterfall)
+- Sample Session with vpla_only : [https://ui-dev.headspin.io/sessions/9ad91018-ea43-11ed-9ea2-0a4e39ac9ea5/waterfall
+](https://ui-dev.headspin.io/sessions/9ad91018-ea43-11ed-9ea2-0a4e39ac9ea5/waterfall)
 
 
 <br/>
