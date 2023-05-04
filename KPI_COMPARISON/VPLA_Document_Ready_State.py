@@ -13,11 +13,11 @@ Test Flow :
         6.Open PC & Computer Sections 
 
 """
-#import python modules 
-from appium import webdriver
+# import python modules
 import unittest
 import argparse
 import time
+from appium import webdriver
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
@@ -28,12 +28,11 @@ from lib.hs_api import hsApi
 
 class AmazonTest(unittest.TestCase):
 
-
     no_reset = False
     autoLaunch = True
     app_name = "Chrome_Amazon"
     test_name = "Document_ready_labelling"
-    browser_name= "chrome"
+    browser_name = "chrome"
 
     def setUp(self):
         self.desired_caps = {}
@@ -48,14 +47,13 @@ class AmazonTest(unittest.TestCase):
         self.desired_caps["browserName"] = self.browser_name
 
         if not use_local_appium:
-            #Headspin capabilities 
+            # Headspin capabilities
             self.desired_caps["headspin:testName"] = self.test_name
             self.desired_caps["headspin:capture.video"] = True
             self.desired_caps["headspin:capture.network"] = False
-            
-            #Creating hs_api object
-            self.hs_api_call = hsApi(udid, access_token)
 
+            # Creating hs_api object
+            self.hs_api_call = hsApi(udid, access_token)
 
         # Initializing Kpis
         self.visual_labels = {}
@@ -72,25 +70,25 @@ class AmazonTest(unittest.TestCase):
         self.visual_labels["Device Details"]["end_sensitivity"] = 0.8
         self.visual_labels["Search Result Page"]["end_sensitivity"] = 0.999
         self.visual_labels["PC Page"]["start_sensitivity"] = 0.999
-        
+
         self.status = "Failed_Driver_Creation"
-        self.session_id = None 
+        self.session_id = None
         # Driver Creation
         print("\nScript started")
         self.driver = webdriver.Remote(url, self.desired_caps)
         print("Driver started")
 
-        #initializing Explicit wait for 20sec
+        # initializing Explicit wait for 20sec
         self.wait = WebDriverWait(self.driver, 20)
-        
-        #Get session id 
+
+        # Get session id
         self.session_id = self.driver.session_id
 
     def test_comparison(self):
         self.status = "Failed_launch"
         print("\nOpen Amazon.com")
-        
-        #Open the amazon site in chrome 
+
+        # Open the amazon site in chrome
         self.driver.get("https://www.amazon.com/")
 
         self.status = "Failed_Open_Amazon.com"
@@ -191,37 +189,37 @@ class AmazonTest(unittest.TestCase):
         self.status = "Passed"
 
     def tearDown(self):
-        print("session_status : " ,self.status)
+        print("session_status : ", self.status)
         if not use_local_appium and self.session_id:
             state = "Passed" if "Fail" not in self.status else "Failed"
-            
+
             # updating session status
             self.driver.execute_script("headspin:quitSession", {"status": state})
             print("Driver Terminated")
-            
+
             session_url = (
                 "https://ui-dev.headspin.io/sessions/" + self.session_id + "/waterfall"
             )
             print("\nURL :", session_url)
-    
-            #Function call to get start and end video timestamp
+
+            # Function call to get start and end video timestamp
             self.get_video_start_timestamp()
-            
-            #waiting until video available for post processing 
+
+            # waiting until video available for post processing
             self.wait_for_session_video_becomes_available()
 
-            if  add_doc_label: 
-                #Function call for adding labels based on document ready state
+            if add_doc_label:
+                # Function call for adding labels based on document ready state
                 self.add_document_ready_based_annotations()
-            
-            if  add_vpla_label:
-                #Function call for performing visual page load analysis 
+
+            if add_vpla_label:
+                # Function call for performing visual page load analysis
                 self.add_visual_page_based_annotations()
-            
-            #Get all the session data 
+
+            # Get all the session data
             session_data = self.get_general_session_data()
 
-            #API call to add data to the session 
+            # API call to add data to the session
             self.hs_api_call.add_session_data(session_data=session_data)
 
             description_string = ""
@@ -235,12 +233,11 @@ class AmazonTest(unittest.TestCase):
             )
         else:
             try:
-                #try to terminate driver 
+                # try to terminate driver
                 self.driver.quit()
                 print("Driver Terminated")
             except:
                 pass
-        
 
     # Get all the session details
     def get_general_session_data(self):
@@ -376,7 +373,7 @@ class AmazonTest(unittest.TestCase):
             time.sleep(1)
         return capture_timestamp
 
-    #scroll to web element to visibility 
+    # scroll to web element to visibility
     def scroll_to_web_element(self, element):
         """
         Scroll to the element in Web View
@@ -466,16 +463,16 @@ if __name__ == "__main__":
         help="use_local_appium_server",
     )
 
-    #Get command line arguments to Variables 
+    # Get command line arguments to Variables
     args = parser.parse_args()
-    add_doc_label = not  (args.vpla_only)
+    add_doc_label = not (args.vpla_only)
     add_vpla_label = not (args.document_only)
     use_local_appium = args.local_appium
     udid = args.udid
     url = args.url
     if not use_local_appium:
         access_token = url.split("/")[-3]
-        #Get Bearer token for header
+        # Get Bearer token for header
         headers = {"Authorization": "Bearer {}".format(access_token)}
     suite = unittest.TestLoader().loadTestsFromTestCase(AmazonTest)
     unittest.TextTestRunner(verbosity=2).run(suite)
