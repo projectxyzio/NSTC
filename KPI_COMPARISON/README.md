@@ -17,11 +17,19 @@ The KPI (Key Performance Indicator) has been evaluated using diverse approaches,
 - Device Platfrom  - Andoid 
 - Test Application  - Expedia , Chrome Browser  
 - Python  - Version 3.8 or above 
-- Install all python packages before executing to avoid import errors.
+
+## Setup
+1.  Install all python packages before executing to avoid import errors.
 
 		#Execute from root Directory 
 		pip3 install -r requirements.txt
--  Local Appium Server for test : [Steps to setup Appium Server ](#as)  (*Optional requirement*)
+2.  For Running the test with  Local Appium Server ( *Optional requirement* )
+	- Install and Setup the Appium Server in  the local  ( [Installation Setp ](https://appium.io/docs/en/2.0/quickstart/install/)) , Start the server with command `appium` and get the Appium url. (Example url : `http://0.0.0.0:4723/wd/hub` )
+	-  Make device available locally and get the device id with command `adb dveices`
+
+  	 	*Note : All Headspin Capabilities will be disabled while running test on local appium server* 
+3. Setup a python virtual environment **`pip3 install virtualenv `**
+4. Activate python virtual environment by running **`source env3/bin/activate `**
 
 ## Simple Setup  
 
