@@ -43,7 +43,9 @@ The KPI (Key Performance Indicator) has been evaluated using diverse approaches,
 2. Execute the setup.sh with command :  **`bash setup.sh`**  
 3. python virtual environment can be activate with the command : **`source env3/bin/activate `**
  
- *Note : The `setup.sh` script is not compatible with Windows operating systems and cannot be executed on them.*
+ 	*Note : The `setup.sh` script is not compatible with Windows operating systems and cannot be executed on them.*
+
+<br/> 
 
 # :radio_button:  Visual Page Load Analysis (VPLA) VS  Find Element <a name = "fe"></a>
 
@@ -100,6 +102,7 @@ python3 VPLA_Appium_Element.py  --udid RZ8NA0Z723M --url https://dev-in-blr-0.he
 
 
 <br/>
+
 
 # :radio_button:  Visual Page Load Analysis (VPLA) VS Document Ready <a name = "dr"></a> 
 
