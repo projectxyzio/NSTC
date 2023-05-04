@@ -71,9 +71,10 @@ class ExpediaTest(unittest.TestCase):
         self.kpi_labels["Profile"]["start_sensitivity"] = 0.99
         self.kpi_labels["Coupons and Credit"]["start_sensitivity"] = 0.99
 
-        # Extra buffer time for visual page load analysis
+        # Extra buffer time for visual page load analysis (in seconds)
         self.kpi_labels["Account"]["buffer_time"] = 1
         self.kpi_labels["Search"]["buffer_time"] = 1
+        self.kpi_labels["Launch"]["buffer_time"] = 1
 
         self.status = "Failed_Driver_Creation"
         self.session_id = None
