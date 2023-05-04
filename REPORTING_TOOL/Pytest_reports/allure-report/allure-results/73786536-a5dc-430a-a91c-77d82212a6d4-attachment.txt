@@ -1,0 +1,8 @@
+May 04 2023 14:12:20.734 pid:41504 conftest.py            80 INFO       <<<<<<<<<< Starting Test: test_youtube_live_streaming >>>>>>>>>>
+May 04 2023 14:12:42.943 pid:41504 demo_script_test.py    24 INFO       Home Screen loaded
+May 04 2023 14:12:46.202 pid:41504 demo_script_test.py    26 INFO       Taped on Create icon
+May 04 2023 14:12:46.955 pid:41504 demo_script_test.py    28 INFO       Taped on Go live
+May 04 2023 14:12:48.011 pid:41504 conftest.py           210 INFO       Test Failed
+May 04 2023 14:12:51.400 pid:41504 conftest.py           319 INFO       Screenshot adding to allure report
+May 04 2023 14:12:51.402 pid:41504 conftest.py           124 INFO       Teardown Started
+May 04 2023 14:12:55.225 pid:41504 conftest.py           137 INFO       Teardown Ended
