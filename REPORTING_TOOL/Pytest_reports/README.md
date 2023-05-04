@@ -68,7 +68,7 @@ In this project, a custom **`--html_report`** command line argument was created.
 Pytest HTML Report can be generated using the command line argument **`--html_report true`**
 
 ```
-pytest scripts/demo_script_test.py --udid <device_id> --appium_url <headspin_appium_url/local_appium_url> --html_report true 
+python3 -m pytest scripts/demo_script_test.py --udid <device_id> --appium_url <headspin_appium_url/local_appium_url> --html_report true 
 ```
 
 Once the execution is completed the generated report will be available on the **`html_reports`**   directory.
@@ -152,7 +152,7 @@ Allure is a powerful reporting framework for test automation that provides detai
 The pytest sample scripts can be executed from the root(Pytest_reports) directory using the run command.
 
 ```
-pytest scripts/demo_script_test.py --udid <device_id> --appium_url <headspin_appium_url/local_appium_url> --allure_report true 
+python3 -m pytest scripts/demo_script_test.py --udid <device_id> --appium_url <headspin_appium_url/local_appium_url> --allure_report true 
 ```
 
 
@@ -212,7 +212,7 @@ Report Portal is an open-source reporting platform designed for software testing
 
   To Enable the Report Portal add --reportportal to the run command during the invocation from the root(Pytest_reports) directory. 
 ```
-pytest scripts/demo_script_test.py --udid <device_id> --appium_url <headspin_appium_url/local_appium_url> --reportportal
+python3 -m pytest scripts/demo_script_test.py --udid <device_id> --appium_url <headspin_appium_url/local_appium_url> --reportportal
 ```
 - ### Test Report  Visualisation 
 
