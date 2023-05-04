@@ -3,7 +3,7 @@
 
 - **KPI_COMPARISON**
   
-  This folder contains three scripts that compare different techniques for KPI calculation.
+  This folder contains three scripts that compare different techniques for KPI (Key Performance Indicator) calculation.
   
   <br>
 
