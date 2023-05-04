@@ -1,13 +1,13 @@
 
-### Content  Deatils 
 
-- **KPI_COMPARISON**
+
+## **KPI_COMPARISON**
   
   This folder contains three scripts that compare different techniques for KPI (Key Performance Indicator) calculation.
   
   <br>
 
-- **REPORTING_TOOL**
+## **REPORTING_TOOL**
 
   This folder contains scripts that generate different test reports. There are four reports in total:
 
