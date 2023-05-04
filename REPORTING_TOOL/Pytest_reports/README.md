@@ -6,6 +6,7 @@ This is a Pytest sample project, which uses different Reporting Tools.
 ## 📝 Table of Contents
 
 - [Requirements](#req) 
+- [Test Flow](#tf) 
 - [Pytest HTML Report](#phr)
 - [Allure Reporting](#ar)
 - [Report Portal](#rp)
@@ -51,6 +52,29 @@ This is a Pytest sample project, which uses different Reporting Tools.
 2. Execute the setup.sh with command :  **`bash setup.sh`**  
 3. python virtual environment can be activate with the command : **`source env3/bin/activate `**
 *Note : The `setup.sh` script is not compatible with Windows operating systems and cannot be executed on them.*
+
+
+<br/>
+
+# :radio_button: Test Flow <a name = "tf"></a>
+### Test case 1(`test_youtube_live_streaming`)
+This test case validates the functionality of live streaming on the YouTube application. It covers the following steps:
+
+1. Launch Youtube application.
+2. Validate Home screen loaded.
+3. Tap on '+'(create) icon from the bottom bar.
+4. Tap on 'Go live' button.
+5. Enter live stream title(Expecting script failure here due to Streaming eligibility).
+6. Start live Stram.
+
+### Test case 2(`test_library_loading`)
+This test case validates the library screen loading. It covers the following steps:
+
+1. Launch Youtube application 
+2. Validate Home screen loaded.
+3. Tap on Library button from the bottom bar.
+4. Validate Library screen loaded.
+
 
 <br/>
 
