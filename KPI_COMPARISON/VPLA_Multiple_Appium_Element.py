@@ -17,7 +17,6 @@ Test Flow :
 # import python modules
 
 
-import random
 import unittest
 import argparse
 import time
@@ -477,28 +476,23 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--udid",
-        "--udid",
         dest="udid",
         type=str,
-        nargs="?",
         default=None,
-        required=False,
+        required=True,
         help="udid",
     )
 
     parser.add_argument(
         "--url",
-        "--url",
         dest="url",
         type=str,
-        nargs="?",
         default=None,
-        required=False,
+        required=True,
         help="url",
     )
 
     parser.add_argument(
-        "--appium_element_only",
         "--appium_element_only",
         dest="element_only",
         type=bool,
@@ -510,10 +504,8 @@ if __name__ == "__main__":
 
     parser.add_argument(
         "--vpla_only",
-        "--vpla_only",
         dest="vpla_only",
         type=bool,
-        nargs="?",
         default=False,
         required=False,
         help="only_visual_page_load_analysis_label",
@@ -521,10 +513,8 @@ if __name__ == "__main__":
 
     parser.add_argument(
         "--use_local_appium",
-        "--use_local_appium",
         dest="local_appium",
         type=bool,
-        nargs="?",
         default=False,
         required=False,
         help="use_local_appium_server",

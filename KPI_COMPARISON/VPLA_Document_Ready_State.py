@@ -411,31 +411,25 @@ if __name__ == "__main__":
 
     parser.add_argument(
         "--udid",
-        "--udid",
         dest="udid",
         type=str,
-        nargs="?",
         default=None,
-        required=False,
+        required=True,
         help="udid",
     )
     parser.add_argument(
         "--url",
-        "--url",
         dest="url",
         type=str,
-        nargs="?",
         default=None,
-        required=False,
+        required=True,
         help="url",
     )
 
     parser.add_argument(
         "--vpla_only",
-        "--vpla_only",
         dest="vpla_only",
         type=bool,
-        nargs="?",
         default=False,
         required=False,
         help="only_visual_page_load_analysis",
@@ -443,10 +437,8 @@ if __name__ == "__main__":
 
     parser.add_argument(
         "--document_ready_state_only",
-        "--document_ready_state_only",
         dest="document_only",
         type=bool,
-        nargs="?",
         default=False,
         required=False,
         help="only_document_ready",
@@ -454,10 +446,8 @@ if __name__ == "__main__":
 
     parser.add_argument(
         "--use_local_appium",
-        "--use_local_appium",
         dest="local_appium",
         type=bool,
-        nargs="?",
         default=False,
         required=False,
         help="use_local_appium_server",
