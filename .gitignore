@@ -160,3 +160,4 @@ cython_debug/
 allure-results
 html_reports
 
+.DS_Store
