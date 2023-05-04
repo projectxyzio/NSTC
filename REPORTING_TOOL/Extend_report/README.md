@@ -42,19 +42,19 @@ and install it.
 
 Three tests are executed in a single session, with one session designated to fail and the other two to pass.
 
-### Test case 1(`Fail session `)
+### Test case 1( Fail session )
 This test case validates the functionality of login the Expedia application. It covers the following steps:
 1. Launch Expedia application.
 2. Clear the initals  popup navigate to login page 
-3. Find Gmail option to login and fail it with wrong element  
+3. Fail at Finding Gamil option for login. 
 
-### Test case 2 and Test case 3(`Pass session `)
+### Test case 2 and Test case 3( Pass session )
 This test case validates the functionality of login the Expedia application. It covers the following steps:
 1. Launch Expedia application.
 2. Clear the initals  popup navigate to login page 
 3. Find Gmail option to login and click 
 4. Select the gmail account for login 
-5. Verify the login with element ON Home page 
+5. Verify the login with element on Home page 
 
 <br/>
 
