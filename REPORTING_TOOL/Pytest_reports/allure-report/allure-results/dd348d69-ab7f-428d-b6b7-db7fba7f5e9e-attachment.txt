@@ -1,0 +1,7 @@
+May 04 2023 14:17:44.330 pid:42034 conftest.py            80 INFO       <<<<<<<<<< Starting Test: test_library_loading >>>>>>>>>>
+May 04 2023 14:18:01.690 pid:42034 demo_script_test.py    46 INFO       Home Screen loaded
+May 04 2023 14:18:06.819 pid:42034 demo_script_test.py    48 INFO       Taped on Library button
+May 04 2023 14:18:07.620 pid:42034 demo_script_test.py    51 INFO       Library screen loaded
+May 04 2023 14:18:07.620 pid:42034 demo_script_test.py    56 INFO       Test Passed
+May 04 2023 14:18:07.621 pid:42034 conftest.py           124 INFO       Teardown Started
+May 04 2023 14:18:11.454 pid:42034 conftest.py           137 INFO       Teardown Ended
