@@ -27,14 +27,11 @@ from lib.hs_api import hsApi
 
 class ExpediaTest(unittest.TestCase):
 
-    use_capture = True
-    video_only = True
     no_reset = True
     autoLaunch = False
-    app_name = "Expedia"
     package = "com.expedia.bookings"
     activity = "com.expedia.bookings.activity.SearchActivity"
-    test_name = "KPI_marking_comparison"
+    test_name = "Appium_element_labelling"
 
     def setUp(self):
         self.desired_caps = {}
@@ -44,10 +41,10 @@ class ExpediaTest(unittest.TestCase):
         self.desired_caps["appPackage"] = self.package
         self.desired_caps["appActivity"] = self.activity
         self.desired_caps["newCommandTimeout"] = 300
-        self.desired_caps["noReset"] = True
+        self.desired_caps["noReset"] = self.no_reset
         self.desired_caps["automationName"] = "UiAutomator2"
         self.desired_caps["autoGrantPermissions"] = True
-        self.desired_caps["autoLaunch"] = False
+        self.desired_caps["autoLaunch"] = self.autoLaunch
 
         
         if not use_local_appium:
@@ -181,19 +178,13 @@ class ExpediaTest(unittest.TestCase):
 
             # updating session status
             self.driver.execute_script("headspin:quitSession", {"status": state})
+            print("Driver Terminated")
+
             session_url = (
                 "https://ui-dev.headspin.io/sessions/" + self.session_id + "/waterfall"
             )
             print("\nURL :", session_url)
         
-        try:
-            #try to terminate driver 
-            self.driver.quit()
-        except:
-            pass
-        print("Driver Terminated")
-        
-        if not use_local_appium and self.session_id:
             #Get Video start_timestamp and end_timestamp 
             self.get_video_start_timestamp()
 
@@ -222,6 +213,14 @@ class ExpediaTest(unittest.TestCase):
                 name=self.test_name,
                 description=description_string,
             )
+        else:
+            try:
+                #try to terminate driver 
+                self.driver.quit()
+                print("Driver Terminated")
+            except:
+                pass
+            
 
     # Get all the session details
     def get_general_session_data(self):
@@ -235,7 +234,7 @@ class ExpediaTest(unittest.TestCase):
 
         return session_data
 
-    # KPI marikng based on elements
+    # KPI marking based on elements
     def add_element_based_annotation(self):
         page_load = {"labels": []}
         label_category = "using finding element"

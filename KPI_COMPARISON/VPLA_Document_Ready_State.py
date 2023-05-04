@@ -28,10 +28,9 @@ from lib.hs_api import hsApi
 
 class AmazonTest(unittest.TestCase):
 
-    use_capture = True
-    video_only = True
-    no_reset = True
-    autoLaunch = False
+
+    no_reset = False
+    autoLaunch = True
     app_name = "Chrome_Amazon"
     test_name = "Document_ready_labelling"
     browser_name= "chrome"
@@ -42,10 +41,10 @@ class AmazonTest(unittest.TestCase):
         self.desired_caps["udid"] = udid
         self.desired_caps["deviceName"] = udid
         self.desired_caps["newCommandTimeout"] = 300
-        self.desired_caps["noReset"] = False
+        self.desired_caps["noReset"] = self.no_reset
         self.desired_caps["automationName"] = "UiAutomator2"
         self.desired_caps["autoGrantPermissions"] = True
-        self.desired_caps["autoLaunch"] = True
+        self.desired_caps["autoLaunch"] = self.autoLaunch
         self.desired_caps["browserName"] = self.browser_name
 
         if not use_local_appium:
@@ -198,20 +197,13 @@ class AmazonTest(unittest.TestCase):
             
             # updating session status
             self.driver.execute_script("headspin:quitSession", {"status": state})
+            print("Driver Terminated")
             
             session_url = (
                 "https://ui-dev.headspin.io/sessions/" + self.session_id + "/waterfall"
             )
             print("\nURL :", session_url)
-        
-        try:
-            #try to terminate driver 
-            self.driver.quit()
-        except:
-            pass
-        print("Driver Terminated")
-        
-        if not use_local_appium and self.session_id:
+    
             #Function call to get start and end video timestamp
             self.get_video_start_timestamp()
             
@@ -241,6 +233,14 @@ class AmazonTest(unittest.TestCase):
                 name=self.test_name,
                 description=description_string,
             )
+        else:
+            try:
+                #try to terminate driver 
+                self.driver.quit()
+                print("Driver Terminated")
+            except:
+                pass
+        
 
     # Get all the session details
     def get_general_session_data(self):
