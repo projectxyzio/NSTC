@@ -8,38 +8,33 @@ Element find from list of element , function call can be found on line number 10
 
 Test Flow : 
         1. Launch 
-        2.From Home Page Open Account 
-        3.Click  Search from Bottom Tab 
-        4.Select Thing ToDo  from Options 
-        5.Select One Listed Event
-        6.Click Book and Navigate to Secure Checkout page 
-        7. Check Is page available and click back 
-
+        2.From Home Page Open Account
+        3.Click  Profile Options  , Verify and get back to Account page 
+        4.Click  Coupons and credits options , Verify and get back to Account page 
+        5.Click  Search from Bottom Tab 
 
 """
-#import python modules 
+# import python modules
 
-from appium import webdriver
-import random
+
 import unittest
 import argparse
 import time
+from appium import webdriver
 from appium.webdriver.common.mobileby import MobileBy
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
 from lib.hs_api import hsApi
 
+
 class ExpediaTest(unittest.TestCase):
 
-    use_capture = True
-    video_only = True
     no_reset = True
     autoLaunch = False
-    app_name = "Expedia"
     package = "com.expedia.bookings"
     activity = "com.expedia.bookings.activity.SearchActivity"
-    test_name = "Multi_elements"
+    test_name = "Multi_elements_labelling"
 
     def setUp(self):
         self.desired_caps = {}
@@ -49,11 +44,11 @@ class ExpediaTest(unittest.TestCase):
         self.desired_caps["appPackage"] = self.package
         self.desired_caps["appActivity"] = self.activity
         self.desired_caps["newCommandTimeout"] = 300
-        self.desired_caps["noReset"] = True
+        self.desired_caps["noReset"] = self.no_reset
         self.desired_caps["automationName"] = "UiAutomator2"
         self.desired_caps["autoGrantPermissions"] = True
-        self.desired_caps["autoLaunch"] = False
-        
+        self.desired_caps["autoLaunch"] = self.autoLaunch
+
         if not use_local_appium:
             # Headspin capabilities
             self.desired_caps["headspin:testName"] = self.test_name
@@ -66,24 +61,26 @@ class ExpediaTest(unittest.TestCase):
         # Initializing Kpis
         self.kpi_labels = {}
         self.kpi_labels["Launch"] = {"start": None, "end": None}
-        self.kpi_labels["Thing to do"] = {"start": None, "end": None}
-        self.kpi_labels["Select Event"] = {"start": None, "end": None}
-        self.kpi_labels["Secure Checkout"] = {"start": None, "end": None}
         self.kpi_labels["Search"] = {"start": None, "end": None}
+        self.kpi_labels["Account"] = {"start": None, "end": None}
+        self.kpi_labels["Profile"] = {"start": None, "end": None}
+        self.kpi_labels["Coupons and Credit"] = {"start": None, "end": None}
 
         # Initializing KPI sensitivity for page_load analysis  (In Script default sensitivity set as 0.9,value ranges from 0-1)
-        self.kpi_labels["Thing to do"]["start_sensitivity"] = 0.999
+        self.kpi_labels["Account"]["end_sensitivity"] = 0.999
+        self.kpi_labels["Account"]["start_sensitivity"] = 0.99
         self.kpi_labels["Search"]["end_sensitivity"] = 0.999
-        self.kpi_labels["Search"]["start_sensitivity"] = 0.999
-        self.kpi_labels["Thing to do"]["end_sensitivity"] = 0.8
+        self.kpi_labels["Search"]["start_sensitivity"] = 0.99
+        self.kpi_labels["Profile"]["start_sensitivity"] = 0.99
+        self.kpi_labels["Coupons and Credit"]["start_sensitivity"] = 0.99
 
-        #Extra buffer time for visual page load analysis 
-        self.kpi_labels["Thing to do"]["buffer_time"] = 1.2
+        # Extra buffer time for visual page load analysis
         self.kpi_labels["Launch"]["buffer_time"] = 1
-        self.kpi_labels["Select Event"]["buffer_time"] = 1.2
+        self.kpi_labels["Account"]["buffer_time"] = 1
+        self.kpi_labels["Search"]["buffer_time"] = 1
 
         self.status = "Failed_Driver_Creation"
-        self.session_id = None 
+        self.session_id = None
         # Driver Creation
         print("\nScript started")
         self.driver = webdriver.Remote(url, self.desired_caps)
@@ -97,14 +94,17 @@ class ExpediaTest(unittest.TestCase):
         self.session_id = self.driver.session_id
 
     def test_comparison(self):
-        #Terminating the app to ensure cold launch
+        # Terminating the app to ensure cold launch
         self.driver.terminate_app(self.package)
 
         self.status = "Failed_launch"
-        profile = (MobileBy.ACCESSIBILITY_ID, 'Profile. Button')
+        profile = (MobileBy.ACCESSIBILITY_ID, "Profile. Button")
+
         txt_no_thanks = (MobileBy.ANDROID_UIAUTOMATOR, 'text("NO THANKS")')
         home_btn = (MobileBy.ACCESSIBILITY_ID, "Home Button")
-        launch_element_list = [home_btn,profile, txt_no_thanks]
+
+        # Element list
+        launch_element_list = [home_btn, profile, txt_no_thanks]
 
         self.kpi_labels["Launch"]["start"] = int(round(time.time() * 1000))
         # Launch App
@@ -119,24 +119,111 @@ class ExpediaTest(unittest.TestCase):
         if launch_loc == txt_no_thanks:
             print("No Thanks ")
             launch_ele.click()
+            time.sleep(1)
 
         account = self.wait.until(
             EC.presence_of_element_located(
                 (MobileBy.ACCESSIBILITY_ID, "Profile. Button")
             )
         )
+        self.status = "Failed_Account"
+        self.kpi_labels["Account"]["start"] = int(round(time.time() * 1000))
         account.click()
-
         self.wait.until(
             EC.presence_of_element_located(
                 (MobileBy.ID, "com.expedia.bookings:id/section_title")
             )
         )
-        print("Account Page ")
-        time.sleep(1)
+        self.kpi_labels["Account"]["end"] = int(round(time.time() * 1000))
+        print("Account  Page")
+        time.sleep(2)
         search_button = self.wait.until(
             EC.presence_of_element_located((MobileBy.ACCESSIBILITY_ID, "Search Button"))
         )
+
+        profile_option = self.wait.until(
+            EC.presence_of_element_located(
+                (
+                    MobileBy.XPATH,
+                    '//android.widget.LinearLayout[@content-desc="Profile. Update personal details and customise preferences. Button"]/android.widget.TextView',
+                )
+            )
+        )
+
+        self.status = "Failed_to_profile"
+        self.kpi_labels["Profile"]["start"] = int(round(time.time() * 1000))
+        profile_option.click()
+
+        btn_travel_detail = (MobileBy.ANDROID_UIAUTOMATOR, 'text("My Travel Details")')
+        btn_account_info = btn_travel_detail = (
+            MobileBy.ANDROID_UIAUTOMATOR,
+            'text("My Account Info")',
+        )
+        btn_payment_method = btn_travel_detail = (
+            MobileBy.ANDROID_UIAUTOMATOR,
+            'text("Payment Methods")',
+        )
+
+        # Element list
+        profile_element_list = [btn_travel_detail, btn_account_info, btn_payment_method]
+
+        self.find_element_from_locator_list(profile_element_list)
+        self.kpi_labels["Profile"]["end"] = int(round(time.time() * 1000))
+        print("Profile  Page")
+
+        time.sleep(2)
+        self.wait.until(
+            EC.presence_of_element_located(
+                (MobileBy.ACCESSIBILITY_ID, "Close My account")
+            )
+        ).click()
+        self.wait.until(
+            EC.presence_of_element_located(
+                (MobileBy.ID, "com.expedia.bookings:id/section_title")
+            )
+        )
+
+        coupon_and_credit = self.wait.until(
+            EC.presence_of_element_located(
+                (
+                    MobileBy.XPATH,
+                    '//android.widget.LinearLayout[@content-desc="Coupons and credits. See coupons and credits available for your next trip. Button"]/android.widget.TextView',
+                )
+            )
+        )
+        self.status = "Failed_to_coupon_and_credit"
+
+        self.kpi_labels["Coupons and Credit"]["start"] = int(round(time.time() * 1000))
+        coupon_and_credit.click()
+
+        txt_how_to_use_coupon = (
+            MobileBy.ANDROID_UIAUTOMATOR,
+            'text("How to use coupons")',
+        )
+        txt_no_coupon = (
+            MobileBy.ANDROID_UIAUTOMATOR,
+            'text("How to use airline credits")',
+        )
+
+        # Element list
+        coupon_element_list = [txt_how_to_use_coupon, txt_no_coupon]
+
+        self.find_element_from_locator_list(coupon_element_list)
+
+        self.kpi_labels["Coupons and Credit"]["end"] = int(round(time.time() * 1000))
+        print("Coupons & Credit Page")
+
+        time.sleep(2)
+        self.wait.until(
+            EC.presence_of_element_located(
+                (MobileBy.ACCESSIBILITY_ID, "Close My account")
+            )
+        ).click()
+
+        search_button = self.wait.until(
+            EC.presence_of_element_located((MobileBy.ACCESSIBILITY_ID, "Search Button"))
+        )
+        time.sleep(1)
 
         self.kpi_labels["Search"]["start"] = int(round(time.time() * 1000))
         search_button.click()
@@ -155,125 +242,40 @@ class ExpediaTest(unittest.TestCase):
         ]
         # find any of the element from the list
         self.find_element_from_locator_list(search_element_list)
-        
+
         self.kpi_labels["Search"]["end"] = int(round(time.time() * 1000))
         time.sleep(1)
         print("Search  Page")
-
-        self.status = "Failed_Thing_TODO"
-        thing_to_do = self.wait.until(
-            EC.presence_of_element_located(
-                (MobileBy.ANDROID_UIAUTOMATOR, 'text("Things to do")')
-            )
-        )
-
-        time.sleep(0.5)
-        self.status = "Failed_to_open_things_TODO"
-        self.kpi_labels["Thing to do"]["start"] = int(round(time.time() * 1000))
-        thing_to_do.click()
-        self.wait.until(
-            EC.presence_of_element_located(
-                (MobileBy.ID, "com.expedia.bookings:id/sort_filter_uds_button")
-            )
-        )
-        self.kpi_labels["Thing to do"]["end"] = int(round(time.time() * 1000))
-        print("Things To_Do")
-        time.sleep(2)
-
-        options = self.wait.until(
-            EC.presence_of_all_elements_located(
-                (MobileBy.CLASS_NAME, "android.widget.FrameLayout")
-            )
-        )
-        self.status = "Failed_to_select_event"
-
-        choice = random.choice([2, 3])
-        self.kpi_labels["Select Event"]["start"] = int(round(time.time() * 1000))
-        options[choice].click()
-        print("Event Selected")
-
-        self.wait.until(
-            EC.presence_of_all_elements_located(
-                (MobileBy.ID, "com.expedia.bookings:id/info_title_text")
-            )
-        )
-        self.kpi_labels["Select Event"]["end"] = int(round(time.time() * 1000))
-        time.sleep(2)
-
-        for _ in range(4):
-            try:
-                btn_book = self.short_wait.until(
-                    EC.presence_of_element_located(
-                        (MobileBy.ANDROID_UIAUTOMATOR, 'text("Book")')
-                    )
-                )
-                time.sleep(0.5)
-                break
-            except:
-                self.screen_swipe()
-        self.kpi_labels["Secure Checkout"]["start"] = int(round(time.time() * 1000))
-        btn_book.click()
-        time.sleep(1)
-
-        txt_try_later = (
-            MobileBy.ANDROID_UIAUTOMATOR,
-            'text("Sorry, we’re having a problem on our end. Please try again later.")',
-        )
-        txt_secure = (MobileBy.ANDROID_UIAUTOMATOR, 'textContains("Secure booking —")')
-
-        # Element list
-        element_list = [txt_try_later, txt_secure]
-        # checking is any of the element in the list is on the screen
-        element, locator = self.find_element_from_locator_list(element_list)
-
-        if locator == txt_try_later:
-            print("Error Message: Unable to navigate to check out Page  ")
-            self.short_wait.until(
-                EC.presence_of_element_located((MobileBy.ID, "android:id/button1"))
-            ).click()
-        else:
-            print("On secure Checkout Page ")
-            self.kpi_labels["Secure Checkout"]["end"] = int(round(time.time() * 1000))
-        time.sleep(2)
-        self.wait.until(
-            EC.presence_of_element_located((MobileBy.ACCESSIBILITY_ID, "Back"))
-        ).click()
 
         print("Script Passed")
         self.status = "Passed"
 
     def tearDown(self):
 
-        print("session_status : " ,self.status)
+        print("session_status : ", self.status)
         if not use_local_appium and self.session_id:
             # setting Session status
             state = "Passed" if "Fail" not in self.status else "Failed"
 
             # updating session status
             self.driver.execute_script("headspin:quitSession", {"status": state})
+            print("Driver Terminated")
+
             session_url = (
                 "https://ui-dev.headspin.io/sessions/" + self.session_id + "/waterfall"
             )
             print("\nURL :", session_url)
 
-        try:
-            # try to terminate driver
-            self.driver.quit()
-        except:
-            pass
-        print("Driver Terminated")
-
-        if not use_local_appium and self.session_id:
             # Get Video start_timestamp and end_timestamp
             self.get_video_start_timestamp()
 
             # waiting until video available for post processing
             self.wait_for_session_video_becomes_available()
 
-            if   add_element_label:
-                #Function call adding labels based on appium element 
+            if add_element_label:
+                # Function call adding labels based on appium element
                 self.add_element_based_annotation()
-            if   add_vpla_label:
+            if add_vpla_label:
                 # Function call for performing visual page load analysis
                 self.add_visual_page_based_annotations()
             session_data = self.get_general_session_data()
@@ -292,6 +294,14 @@ class ExpediaTest(unittest.TestCase):
                 description=description_string,
             )
 
+        else:
+            try:
+                # try to terminate driver
+                self.driver.quit()
+                print("Driver Terminated")
+            except:
+                pass
+
     # Get all the session details
     def get_general_session_data(self):
 
@@ -304,7 +314,7 @@ class ExpediaTest(unittest.TestCase):
 
         return session_data
 
-    # KPI marikng based on elements
+    # KPI marking based on elements
     def add_element_based_annotation(self):
         page_load = {"labels": []}
         label_category = "using finding multi-element"
@@ -462,32 +472,27 @@ class ExpediaTest(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    
+
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--udid",
-        "--udid",
         dest="udid",
         type=str,
-        nargs="?",
         default=None,
-        required=False,
+        required=True,
         help="udid",
     )
-    
+
     parser.add_argument(
-        "--url",
         "--url",
         dest="url",
         type=str,
-        nargs="?",
         default=None,
-        required=False,
+        required=True,
         help="url",
     )
-    
+
     parser.add_argument(
-        "--appium_element_only",
         "--appium_element_only",
         dest="element_only",
         type=bool,
@@ -499,10 +504,8 @@ if __name__ == "__main__":
 
     parser.add_argument(
         "--vpla_only",
-        "--vpla_only",
         dest="vpla_only",
         type=bool,
-        nargs="?",
         default=False,
         required=False,
         help="only_visual_page_load_analysis_label",
@@ -510,19 +513,17 @@ if __name__ == "__main__":
 
     parser.add_argument(
         "--use_local_appium",
-        "--use_local_appium",
         dest="local_appium",
         type=bool,
-        nargs="?",
         default=False,
         required=False,
         help="use_local_appium_server",
     )
 
     args = parser.parse_args()
-    
-    #Get command line arguments to Variables
-    add_element_label =  not (args.vpla_only)
+
+    # Get command line arguments to Variables
+    add_element_label = not (args.vpla_only)
     add_vpla_label = not (args.element_only)
     use_local_appium = args.local_appium
     udid = args.udid
