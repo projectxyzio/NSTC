@@ -34,7 +34,7 @@ This is a Pytest sample project, which uses different Reporting Tools.
   	 	*Note : All Headspin Capabilities will be disabled while running test on local appium server* 
 
 
-**Note**  :
+## Simple Setup
 
 -  To perform the Test Setup on Linux and Mac OS, you can run the `setup.sh` bash script located in the root directory. The script carries out the subsequent actions:
 
