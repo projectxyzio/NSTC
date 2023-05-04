@@ -47,6 +47,38 @@ The KPI (Key Performance Indicator) has been evaluated using diverse approaches,
 
 <br/> 
 
+
+# :radio_button: Test Flow <a name = "tf"></a>
+## Expedia App 
+-  Test Script  : `VPLA_Appium_Element.py ,  VPLA_Multiple_Appium_Element.py`
+- Testflow : 
+   	
+	1. Launch 
+	
+   	2. From Home Page Open Account
+        
+   	3. Click  Profile Options  , Verify and get back to Account page 
+   	
+	4. Click  Coupons and credits options , Verify and get back to Account page 
+        
+   	5. Click  Search from Bottom Tab 
+
+## Amazon Mobile 
+-  Test Script : `VPLA_Doccument_Ready_State.py`
+- Testflow : 
+
+	1. Launch Chrome Browser 
+        
+	2. Open Amazon.in
+        
+	3. Search for Apple iPhone 13 
+        
+	4. Select First phone from the list 
+        
+	5. Click Menu Option 
+        
+	6. Open PC & Computer Sections 
+
 # :radio_button:  Visual Page Load Analysis (VPLA) VS  Find Element <a name = "fe"></a>
 
 ## Testing App 
