@@ -41,7 +41,6 @@ def pytest_addoption(parser):
         required=True,
         help="appium_url",
     )
-
     parser.addoption(
         "--udid",
         dest="udid",
@@ -89,12 +88,13 @@ def driver(request):
     session_data.udid = request.config.getoption("udid")
 
     session_data.desired_capabilities = {
-        "automationName": "uiautomator2",
         "appPackage": session_data.package,
-        "platformName": "android",
         "appActivity": session_data.activity,
-        "newCommandTimeout": 60,
         "udid": session_data.udid,
+        "newCommandTimeout": 60,
+        "platformName": "android",
+        "automationName": "uiautomator2",
+        "autoGrantPermissions" : True,
     }
 
     # Adding headspin capabilities, when headspin appium url is used.
@@ -115,7 +115,10 @@ def driver(request):
     )
 
     session_data.session_id = driver.session_id
-    add_allure_environment(session_data.desired_capabilities)
+
+    # updating Environment section in allure report
+    if request.config.getoption("allure_report_dir"):
+        add_allure_environment(session_data.desired_capabilities)
 
     yield driver
     logger.info("Teardown Started")
@@ -140,10 +143,13 @@ def pytest_configure(config):
     """
     allows you to configure the testing environment and add custom functionality to your tests.
     """
+
+    # Enable Allure report
     if config.getoption("allure_report").lower() == "true":
         config.option.allure_report_dir = ALLURE_RESULTS_DIR
         logger.info("Allure Report enabled for this execution")
 
+    # Enable HTML report
     if config.getoption("html_report").lower() == "true":
         if not os.path.exists(HTML_REPORTS_DIR):
             os.makedirs(HTML_REPORTS_DIR)
@@ -153,6 +159,7 @@ def pytest_configure(config):
         config.option.self_contained_html = True
         logger.info("Pytest HTML Report enabled for this execution")
 
+    # logging Enable report portal
     if config.getoption("rp_enabled"):
         logger.info("Report Portal enabled for this execution")
 
@@ -277,22 +284,6 @@ def pytest_terminal_summary(terminalreporter, config):
         pass
 
 
-def add_allure_environment(data):
-    """
-    Adding environment info to allure report
-    """
-    config = configparser.ConfigParser()
-    config["CAPS"] = {
-        "UDID": data.get("udid"),
-        "Platform_Name": data.get("platformName"),
-    }
-    allure_results_dir = os.path.join(ALLURE_REPORTS_DIR, "allure-results")
-    with open(
-        os.path.join(allure_results_dir, "environment.properties"), "w"
-    ) as configfile:
-        config.write(configfile)
-
-
 def add_screenshot_to_report(item, extras, name="ScreenShot"):
     """
     Adding failed screenshot to the reports
@@ -332,3 +323,19 @@ def add_screenshot_to_report(item, extras, name="ScreenShot"):
                 name=name,
                 attachment_type=AttachmentType.PNG,
             )
+
+
+def add_allure_environment(data):
+    """
+    Adding environment info to allure report
+    """
+    config = configparser.ConfigParser()
+    config["CAPS"] = {
+        "UDID": data.get("udid"),
+        "Platform_Name": data.get("platformName"),
+    }
+    allure_results_dir = os.path.join(ALLURE_REPORTS_DIR, "allure-results")
+    with open(
+        os.path.join(allure_results_dir, "environment.properties"), "w"
+    ) as configfile:
+        config.write(configfile)
