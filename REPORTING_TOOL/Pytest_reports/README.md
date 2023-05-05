@@ -230,21 +230,21 @@ Report Portal is an open-source reporting platform designed for software testing
 
 ### 3. Configuration<a name = "conf"></a>
 
-  The config file pytest.ini is in root directory of tests . The pytest.ini file have following parameters to set   : 
+  The config file pytest.ini is in root directory of tests. The pytest.ini file have following parameters to set   : 
 
-	*   **`rp_uuid`**: value could be found in the User Profile section (Access Token) 
-	*   **`rp_project`**: name of project in Report Portal
-	*   **`rp_endpoint`**: address of Report Portal Server
-	*   **`rp_launch`**: AnyLaunchName - launch name (could be overridden by pytest --rp-launch option, default value is 'Pytest Launch')
-	*   **`rp_launch_attributes`**: 'PyTest' 'Smoke' 'Env:Python3' - list of attributes for launch
-	*   **`rp_tests_attributes`**:'PyTest' 'Smoke' - list of attributes that will be added for each item in the launch
+*   **`rp_uuid`**: value could be found in the User Profile section (Access Token) 
+*   **`rp_project`**: name of project in Report Portal
+*   **`rp_endpoint`**: address of Report Portal Server
+*   **`rp_launch`**: AnyLaunchName - launch name (could be overridden by pytest --rp-launch option, default value is 'Pytest Launch')
+*   **`rp_launch_attributes`**: 'PyTest' 'Smoke' 'Env:Python3' - list of attributes for launch
+*   **`rp_tests_attributes`**:'PyTest' 'Smoke' - list of attributes that will be added for each item in the launch
 
   
 	**Note** :
 
-	 - **`rp_uuid`**: As we are using a Demo account to view the test report, there is a possibility that the token may change. Therefore, before running the tests, ensure that the latest generated token is being used, which can be found in the profile section .If the default token has been changed, please update it with the latest token before running the tests. Account Link  : [Demo Account User Profile ](https://demo.reportportal.io/ui/#user-profile)
+	 - **`rp_uuid`**: As we are using a Demo account to view the test report, there is a possibility that the token may change. Therefore, before running the tests, ensure that the latest generated token is being used, which can be found in the profile section. If the default token has been changed, please update it with the latest token before running the tests. Account Link  : [Demo Account User Profile ](https://demo.reportportal.io/ui/#user-profile)
 	
-	-  If you like to override the above parameters from command line, or from CI environment based on your build, then pass : **`-o "rp_launch_attributes=Smoke Tests"`** during invocation.*
+	-  If you like to override the above parameters from command line, or from CI environment based on your build, then pass: **`-o "rp_launch_attributes=Smoke Tests"`** during invocation.*
 
 ### 4. Run Script with ReportPortal 
 
@@ -255,13 +255,13 @@ python3 -m pytest scripts/demo_script_test.py --udid <device_id> --appium_url <h
 
 ### 5. Test Report  Visualisation 
 
-  *  Test ran with the default pytest.ini conf deatils can be visualised in Demo Dashboard of ReportProtal  .
+  *  Test ran with the default pytest.ini conf details can be visualised in Demo Dashboard of ReportProtal.
 
   *    TestPortal Demo Account : [Demo Account Link ](https://demo.reportportal.io/ui/#default_personal/launches/19)
   
-  * Test Reports on Demo ReportProtal Account will be flushed in every 18hours , Data will be flushed in 18 hours . 
+  * Test Reports on Demo ReportProtal Account will be flushed in every 18 hours, Data will be flushed in 18 hours. 
 
-   *Note : By clicking on the login button, you can access Demo account as Demo  login credentials will already be saved.*
+   *Note: By clicking on the login button, you can access Demo account as Demo login credentials will already be saved.*
 
 ### 6. Report Portal Samples
 
