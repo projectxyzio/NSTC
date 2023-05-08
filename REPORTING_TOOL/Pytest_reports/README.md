@@ -51,6 +51,8 @@ This is a Pytest sample project, which uses different Reporting Tools.
 1.  To run the **`setup.sh`** bash script, it is necessary to grant executable permission by using the command **`chmod +x setup.sh`** beforehand.
 2. Execute the setup.sh with command :  **`bash setup.sh`**  
 3. python virtual environment can be activate with the command : **`source env3/bin/activate `**
+4. After the test execution exit from the environment  with the command :  **`deactivate`** 
+
 *Note : The `setup.sh` script is not compatible with Windows operating systems and cannot be executed on them.*
 
 
