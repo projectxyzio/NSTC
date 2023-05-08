@@ -48,7 +48,11 @@ This is a Pytest sample project, which uses different Reporting Tools.
 	- Verify whether allure is pre-installed or not, and if it is not installed, proceed with its installation.   
 
 **Setps:** 
-1.  To run the **`setup.sh`** bash script, it is necessary to grant executable permission by using the command **`chmod +x setup.sh`** beforehand.
+1.  To run the **`setup.sh`** bash script, it is necessary to grant executable permission by using the command : 
+```
+chmod +x setup.sh
+```
+
 2. Execute the setup.sh with command :  
 ```
 bash setup.sh
