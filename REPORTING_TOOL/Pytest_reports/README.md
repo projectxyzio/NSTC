@@ -39,7 +39,7 @@ This is a Pytest sample project, which uses different Reporting Tools.
 5. Run Test from  **`Pytest_reports`** Directory .
 
 
-## Simple Setup
+## Simple Setup ( For Mac and Linux )
 
 -  To perform the Test Setup on Linux and Mac OS, you can run the `setup.sh` bash script located in the root directory. The script carries out the subsequent actions:
 
