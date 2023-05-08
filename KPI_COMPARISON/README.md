@@ -31,7 +31,7 @@ The KPI (Key Performance Indicator) has been evaluated using diverse approaches,
 3. Setup a python virtual environment **`pip3 install virtualenv `**
 4. Activate python virtual environment by running **`source env3/bin/activate `**
 
-## Simple Setup  
+## Simple Setup ( For Mac and Linux )
 
 -  To perform the Test Setup on Linux and Mac OS, you can run the `setup.sh` bash script located in the root directory. The script carries out the subsequent actions:
 
