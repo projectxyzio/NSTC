@@ -274,14 +274,20 @@ class ExpediaTest(unittest.TestCase):
             for x in data_list_two:
                 data_set_two[x['name']] = round(x['end_time']-x['start_time'])/1000
         print("\n")
-        for x  in data_set_one.keys():
+        
+        if add_vpla_label:
+            set_selection = data_set_one
+        elif add_element_label:
+            set_selection = data_list_two
+        for x  in set_selection.keys():
             print("KPI : ",x)
             if add_vpla_label:
                 print(f"{category_one} : ",data_set_one[x], "Seconds")
             if add_element_label:
                 print(f"{category_two} : ",data_set_two[x], "Seconds")
             if add_vpla_label and add_element_label:
-                print(f"Percentage Difference between {category_two} and {category_one} (Accuracy) :",( abs((data_set_two[x] - data_set_one[x])/(data_set_two[x] + data_set_one[x])) * 100) / data_set_one[x],"%")
+                pass
+                # print(f"Percentage Difference between {category_two} and {category_one} (Accuracy) :",( abs((data_set_two[x] - data_set_one[x])/(data_set_two[x] + data_set_one[x])) * 100) / data_set_one[x],"%")
             print("\n")
             
 
