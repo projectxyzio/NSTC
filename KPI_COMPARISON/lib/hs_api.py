@@ -130,7 +130,12 @@ class hsApi:
         request_url = "https://api-dev.headspin.io/v0/devices/lock"
         response = requests.post(request_url, json={"device_id":self.UDID}, headers=self.headers)
         # print(response.text)
-
+        
+    def get_labels(self,category,session_id):
+        request_url = f"https://api-dev.headspin.io/v0/sessions/{session_id}/label/list?category={category}"
+        response = requests.get(url = request_url, headers=self.headers)
+        results = self.parse_response(response)
+        return results['labels']
     # Unlock a device which is locked by the same user.
     def unlock_device(self):
         request_url = "https://api-dev.headspin.io/v0/devices/unlock"
