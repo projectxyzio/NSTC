@@ -248,6 +248,7 @@ class ExpediaTest(unittest.TestCase):
                 name=self.test_name,
                 description=description_string,
             )
+            self.kpi_data()
         else:
             try:
                 # try to terminate driver
@@ -255,7 +256,7 @@ class ExpediaTest(unittest.TestCase):
                 print("Driver Terminated")
             except:
                 pass
-        self.kpi_data()
+        
         
         
         
@@ -276,10 +277,10 @@ class ExpediaTest(unittest.TestCase):
         print("\n")
         
         if add_vpla_label:
-            set_selection = data_set_one
+            keys = data_set_one.keys()
         elif add_element_label:
-            set_selection = data_list_two
-        for x  in set_selection.keys():
+            keys = data_set_two.keys()
+        for x  in keys:
             print("KPI : ",x)
             if add_vpla_label:
                 print(f"{category_one} : ",data_set_one[x], "Seconds")
