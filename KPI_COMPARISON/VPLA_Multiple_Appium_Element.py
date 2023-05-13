@@ -130,26 +130,19 @@ class ExpediaTest(unittest.TestCase):
         self.status = "Failed_Account"
         self.kpi_labels["Account"]["start"] = int(round(time.time() * 1000))
         account.click()
-        self.wait.until(
+        profile_option = self.wait.until(
             EC.presence_of_element_located(
-                (MobileBy.ID, "com.expedia.bookings:id/section_title")
+                (
+                    MobileBy.ANDROID_UIAUTOMATOR,
+                    'textContains("Update personal details and")'
+                )
             )
         )
         self.kpi_labels["Account"]["end"] = int(round(time.time() * 1000))
         print("Account  Page")
         time.sleep(2)
-        search_button = self.wait.until(
-            EC.presence_of_element_located((MobileBy.ACCESSIBILITY_ID, "Search Button"))
-        )
 
-        profile_option = self.wait.until(
-            EC.presence_of_element_located(
-                (
-                    MobileBy.XPATH,
-                    '//android.widget.LinearLayout[@content-desc="Profile. Update personal details and customise preferences. Button"]/android.widget.TextView',
-                )
-            )
-        )
+        
 
         self.status = "Failed_to_profile"
         self.kpi_labels["Profile"]["start"] = int(round(time.time() * 1000))
@@ -184,14 +177,20 @@ class ExpediaTest(unittest.TestCase):
             )
         )
 
-        coupon_and_credit = self.wait.until(
-            EC.presence_of_element_located(
-                (
-                    MobileBy.XPATH,
-                    '//android.widget.LinearLayout[@content-desc="Coupons and credits. See coupons and credits available for your next trip. Button"]/android.widget.TextView',
+        for _ in range (4):
+            try:
+                coupon_and_credit = self.short_wait.until(
+                    EC.presence_of_element_located(
+                        (
+                            MobileBy.XPATH,
+                            '//android.widget.LinearLayout[@content-desc="Coupons and credits. See coupons and credits available for your next trip. Button"]'
+                        )
+                    )
                 )
-            )
-        )
+                time.sleep(1)
+                break 
+            except:
+                self.screen_swipe()
         self.status = "Failed_to_coupon_and_credit"
 
         self.kpi_labels["Coupons and Credit"]["start"] = int(round(time.time() * 1000))
