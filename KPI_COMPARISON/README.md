@@ -267,6 +267,5 @@ python3 VPLA_Multiple_Appium_Element.py --udid RZ8NA0Z723M --url https://dev-in-
 
 # :iphone: Tested On  
 
-            ORG : Headspin_APAC_Shared
-            Device :SAMSUNG SM-M317  
             UDID : RZ8NA0Z723M
+	    UDID : R58R75M2ZNZ
