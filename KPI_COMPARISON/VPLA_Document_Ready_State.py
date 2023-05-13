@@ -271,10 +271,11 @@ class AmazonTest(unittest.TestCase):
                 # print(f"{category_two} : ",data_set_two[x], "Seconds")
             if add_vpla_label and add_doc_label:
                 pass
+            kpi_table_data.append(["","",""])
                 # print(f"Percentage Difference between {category_two} and {category_one} (Accuracy) :",( abs((data_set_two[x] - data_set_one[x])/(data_set_two[x] + data_set_one[x])) * 100) / data_set_one[x],"%")
             
         print("\n")
-        print(tabulate(kpi_table_data,headers=["KPI Name","Measurement Technique","Duration(In Seconds)"]))
+        print(tabulate(kpi_table_data,headers=["KPI Name","Measurement Technique","Duration(In Seconds)"],tablefmt="mixed_grid"))
        
     # Get all the session details
     def get_general_session_data(self):
