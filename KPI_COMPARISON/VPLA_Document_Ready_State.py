@@ -21,6 +21,7 @@ from appium import webdriver
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
+from tabulate import tabulate
 
 
 from lib.hs_api import hsApi
@@ -254,22 +255,26 @@ class AmazonTest(unittest.TestCase):
             data_set_two = {}
             for x in data_list_two:
                 data_set_two[x['name']] = round(x['end_time']-x['start_time'])/1000
-        print("\n")
         
         if add_vpla_label:
             keys = data_set_one.keys()
         elif add_doc_label:
             keys = data_set_two.keys()
+        kpi_table_data = []
         for x  in keys:
-            print("KPI : ",x)
+            # print("KPI : ",x)
             if add_vpla_label:
-                print(f"{category_one} : ",data_set_one[x], "Seconds")
+                kpi_table_data.append([x,category_one,f"{data_set_one[x]} Seconds"])
+                # print(f"{category_one} : ",data_set_one[x], "Seconds")
             if add_doc_label:
-                print(f"{category_two} : ",data_set_two[x], "Seconds")
+                kpi_table_data.append([x,category_two,f"{data_set_two[x]} Seconds"])
+                # print(f"{category_two} : ",data_set_two[x], "Seconds")
             if add_vpla_label and add_doc_label:
                 pass
                 # print(f"Percentage Difference between {category_two} and {category_one} (Accuracy) :",( abs((data_set_two[x] - data_set_one[x])/(data_set_two[x] + data_set_one[x])) * 100) / data_set_one[x],"%")
-            print("\n")
+            
+        print("\n")
+        print(tabulate(kpi_table_data,headers=["KPI Name","Measurement Technique","Duration(In Seconds)"]))
        
     # Get all the session details
     def get_general_session_data(self):
@@ -289,7 +294,7 @@ class AmazonTest(unittest.TestCase):
     ):
         page_load = {"labels": []}
         label_category = "using Document Ready State"
-        print("adding_annotations_based_document_ready")
+        print("Adding annotations based document ready")
         for key, value in self.document_ready_labels.items():
             if (
                 self.document_ready_labels[key]["start"]
@@ -318,7 +323,7 @@ class AmazonTest(unittest.TestCase):
     # Headspin Visual Page load analysis
     def add_visual_page_based_annotations(self):
         page_load = {"regions": [], "wait_timeout_sec": 600}
-        print("adding_visual_based_session_annotations")
+        print("Adding visual based session annotations")
         for key, value in self.visual_labels.items():
 
             if self.visual_labels[key]["start"] and self.visual_labels[key]["end"]:
@@ -391,7 +396,7 @@ class AmazonTest(unittest.TestCase):
         while time.time() < t_end:
             status = self.hs_api_call.get_session_video_metadata(self.session_id)
             if status and ("video_duration_ms" in status):
-                print("\nVideo Available for Post Processing\n")
+                print("\nVideo Available for Post Processing")
                 break
 
     # Get the video time stamps

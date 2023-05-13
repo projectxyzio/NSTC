@@ -24,6 +24,7 @@ from appium import webdriver
 from appium.webdriver.common.mobileby import MobileBy
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
+from tabulate import tabulate
 
 from lib.hs_api import hsApi
 
@@ -317,22 +318,26 @@ class ExpediaTest(unittest.TestCase):
             data_set_two = {}
             for x in data_list_two:
                 data_set_two[x['name']] = round(x['end_time']-x['start_time'])/1000
-        print("\n")
         
+
         if add_vpla_label:
             keys = data_set_one.keys()
         elif add_element_label:
             keys = data_set_two.keys()
+        kpi_table_data = []
         for x  in keys:
-            print("KPI : ",x)
             if add_vpla_label:
-                print(f"{category_one} : ",data_set_one[x], "Seconds")
+                kpi_table_data.append([x,category_one,f"{data_set_one[x]} Seconds"])
+                # print(f"{category_one} : ",data_set_one[x], "Seconds")
             if add_element_label:
-                print(f"{category_two} : ",data_set_two[x], "Seconds")
+                kpi_table_data.append([x,category_two,f"{data_set_two[x]} Seconds"])
+                # print(f"{category_two} : ",data_set_two[x], "Seconds")
             if add_vpla_label and add_element_label:
                 pass
                 # print(f"Percentage Difference between {category_two} and {category_one} (Accuracy) :",( abs((data_set_two[x] - data_set_one[x])/(data_set_two[x] + data_set_one[x])) * 100) / data_set_one[x],"%")
-            print("\n")
+        print("\n")
+        print(tabulate(kpi_table_data,headers=["KPI Name","Measurement Technique","Duration(In Seconds)"]))
+        
             
 
     # Get all the session details
@@ -351,7 +356,7 @@ class ExpediaTest(unittest.TestCase):
     def add_element_based_annotation(self):
         page_load = {"labels": []}
         label_category = "using finding multi-element"
-        print("adding_element_based_session_annotations")
+        print("Adding element based session annotations")
         for key, value in self.kpi_labels.items():
             if self.kpi_labels[key]["start"] and self.kpi_labels[key]["end"]:
                 label_start_time = (
@@ -376,7 +381,7 @@ class ExpediaTest(unittest.TestCase):
     # Headspin Visual Page load analysis
     def add_visual_page_based_annotations(self):
         page_load = {"regions": [], "wait_timeout_sec": 600}
-        print("adding_visual_based_session_annotations")
+        print("Adding visual based session annotations")
         for key, value in self.kpi_labels.items():
 
             if self.kpi_labels[key]["start"] and self.kpi_labels[key]["end"]:
@@ -449,7 +454,7 @@ class ExpediaTest(unittest.TestCase):
         while time.time() < t_end:
             status = self.hs_api_call.get_session_video_metadata(self.session_id)
             if status and ("video_duration_ms" in status):
-                print("\nVideo Available for Post Processing\n")
+                print("\nVideo Available for Post Processing")
                 break
 
     # Get the video time stamps
