@@ -407,7 +407,7 @@ class ExpediaTest(unittest.TestCase):
         while time.time() < t_end:
             status = self.hs_api_call.get_session_video_metadata(self.session_id)
             if status and ("video_duration_ms" in status):
-                print("\nVideo Available for Post Processing\n")
+                print("\nVideo Available for Post Processing")
                 break
 
     # Get the video time stamps
