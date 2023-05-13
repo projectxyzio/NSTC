@@ -145,7 +145,7 @@ class ExpediaTest(unittest.TestCase):
             EC.presence_of_element_located(
                 (
                     MobileBy.XPATH,
-                    '//android.widget.LinearLayout[@content-desc="Profile. Update personal details and customise preferences. Button"]/android.widget.TextView',
+                    '//android.widget.LinearLayout[@content-desc="Profile. Update personal details and customize preferences. Button"]'
                 )
             )
         )
@@ -183,14 +183,20 @@ class ExpediaTest(unittest.TestCase):
             )
         )
 
-        coupon_and_credit = self.wait.until(
-            EC.presence_of_element_located(
-                (
-                    MobileBy.XPATH,
-                    '//android.widget.LinearLayout[@content-desc="Coupons and credits. See coupons and credits available for your next trip. Button"]/android.widget.TextView',
+        for _ in range (4):
+            try:
+                coupon_and_credit = self.short_wait.until(
+                    EC.presence_of_element_located(
+                        (
+                            MobileBy.XPATH,
+                            '//android.widget.LinearLayout[@content-desc="Coupons and credits. See coupons and credits available for your next trip. Button"]'
+                        )
+                    )
                 )
-            )
-        )
+                time.sleep(1)
+                break 
+            except:
+                self.screen_swipe()
         self.status = "Failed_to_coupon_and_credit"
 
         self.kpi_labels["Coupons and Credit"]["start"] = int(round(time.time() * 1000))
@@ -434,9 +440,9 @@ class ExpediaTest(unittest.TestCase):
     def screen_swipe(
         self,
         start_x_ratio=0.5,
-        start_y_ratio=0.7,
+        start_y_ratio=0.8,
         end_x_ratio=0.5,
-        end_y_ratio=0.2,
+        end_y_ratio=0.5,
         swipe_delay=300,
     ):
         """
