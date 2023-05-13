@@ -293,7 +293,7 @@ class ExpediaTest(unittest.TestCase):
                 name=self.test_name,
                 description=description_string,
             )
-
+            self.kpi_data()
         else:
             try:
                 # try to terminate driver
@@ -301,6 +301,39 @@ class ExpediaTest(unittest.TestCase):
                 print("Driver Terminated")
             except:
                 pass
+
+
+    def kpi_data(self):
+        category_one = "using visual page load api"
+        category_two = "using finding multi-element"
+        
+        if add_vpla_label:
+            data_list_one = self.hs_api_call.get_labels(category=category_one,session_id = self.session_id)
+            data_set_one = {}
+            for x in data_list_one:
+                data_set_one[x['name']] = round(x['end_time']-x['start_time'])/1000
+        if add_element_label:
+            data_list_two = self.hs_api_call.get_labels(category=category_two,session_id = self.session_id)
+            data_set_two = {}
+            for x in data_list_two:
+                data_set_two[x['name']] = round(x['end_time']-x['start_time'])/1000
+        print("\n")
+        
+        if add_vpla_label:
+            keys = data_set_one.keys()
+        elif add_element_label:
+            keys = data_set_two.keys()
+        for x  in keys:
+            print("KPI : ",x)
+            if add_vpla_label:
+                print(f"{category_one} : ",data_set_one[x], "Seconds")
+            if add_element_label:
+                print(f"{category_two} : ",data_set_two[x], "Seconds")
+            if add_vpla_label and add_element_label:
+                pass
+                # print(f"Percentage Difference between {category_two} and {category_one} (Accuracy) :",( abs((data_set_two[x] - data_set_one[x])/(data_set_two[x] + data_set_one[x])) * 100) / data_set_one[x],"%")
+            print("\n")
+            
 
     # Get all the session details
     def get_general_session_data(self):
