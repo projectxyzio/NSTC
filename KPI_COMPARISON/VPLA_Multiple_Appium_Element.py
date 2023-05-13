@@ -71,8 +71,9 @@ class ExpediaTest(unittest.TestCase):
         self.kpi_labels["Account"]["end_sensitivity"] = 0.999
         self.kpi_labels["Account"]["start_sensitivity"] = 0.99
         self.kpi_labels["Search"]["end_sensitivity"] = 0.999
-        self.kpi_labels["Search"]["start_sensitivity"] = 0.99
+        self.kpi_labels["Search"]["start_sensitivity"] = 0.9
         self.kpi_labels["Profile"]["start_sensitivity"] = 0.99
+        self.kpi_labels["Profile"]["end_sensitivity"] = 0.8
         self.kpi_labels["Coupons and Credit"]["start_sensitivity"] = 0.99
 
         # Extra buffer time for visual page load analysis (in seconds)

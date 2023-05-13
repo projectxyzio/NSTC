@@ -71,6 +71,7 @@ class AmazonTest(unittest.TestCase):
         self.visual_labels["Device Details"]["end_sensitivity"] = 0.8
         self.visual_labels["Search Result Page"]["end_sensitivity"] = 0.999
         self.visual_labels["PC Page"]["start_sensitivity"] = 0.999
+        self.visual_labels["PC Page"]["end_sensitivity"] = 0.85
 
         self.status = "Failed_Driver_Creation"
         self.session_id = None
