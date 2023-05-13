@@ -337,7 +337,7 @@ class ExpediaTest(unittest.TestCase):
             kpi_table_data.append(["","",""])
                 # print(f"Percentage Difference between {category_two} and {category_one} (Accuracy) :",( abs((data_set_two[x] - data_set_one[x])/(data_set_two[x] + data_set_one[x])) * 100) / data_set_one[x],"%")
         print("\n")
-        print(tabulate(kpi_table_data,headers=["KPI Name","Measurement Technique","Duration(In Seconds)"],tablefmt="simple_grid"))
+        print(tabulate(kpi_table_data,headers=["KPI Name","Measurement Technique","Duration(In Seconds)"],tablefmt="mixed_grid"))
         
             
 
