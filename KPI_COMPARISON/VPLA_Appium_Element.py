@@ -86,6 +86,7 @@ class ExpediaTest(unittest.TestCase):
 
         # initializing Explicit wait for 20sec
         self.wait = WebDriverWait(self.driver, 20)
+        self.short_wait = WebDriverWait(self.driver, 0.2)
 
         # Get session id
         self.session_id = self.driver.session_id
@@ -113,23 +114,19 @@ class ExpediaTest(unittest.TestCase):
 
         self.kpi_labels["Account"]["start"] = int(round(time.time() * 1000))
         account.click()
-        self.wait.until(
+        profile_option = self.wait.until(
             EC.presence_of_element_located(
-                (MobileBy.ID, "com.expedia.bookings:id/section_title")
+                (
+                    MobileBy.ANDROID_UIAUTOMATOR,
+                    'textContains("Update personal details and")'
+                )
             )
         )
         self.kpi_labels["Account"]["end"] = int(round(time.time() * 1000))
         print("Account  Page")
         time.sleep(2)
 
-        profile_option = self.wait.until(
-            EC.presence_of_element_located(
-                (
-                    MobileBy.XPATH,
-                    '//android.widget.LinearLayout[@content-desc="Profile. Update personal details and customise preferences. Button"]/android.widget.TextView',
-                )
-            )
-        )
+        
         self.status = "Failed_to_profile"
         self.kpi_labels["Profile"]["start"] = int(round(time.time() * 1000))
         profile_option.click()
@@ -154,14 +151,20 @@ class ExpediaTest(unittest.TestCase):
             )
         )
 
-        coupon_and_credit = self.wait.until(
-            EC.presence_of_element_located(
-                (
-                    MobileBy.XPATH,
-                    '//android.widget.LinearLayout[@content-desc="Coupons and credits. See coupons and credits available for your next trip. Button"]/android.widget.TextView',
+        for _ in range (4):
+            try:
+                coupon_and_credit = self.short_wait.until(
+                    EC.presence_of_element_located(
+                        (
+                            MobileBy.XPATH,
+                            '//android.widget.LinearLayout[@content-desc="Coupons and credits. See coupons and credits available for your next trip. Button"]'
+                        )
+                    )
                 )
-            )
-        )
+                time.sleep(1)
+                break 
+            except:
+                self.screen_swipe()
         self.status = "Failed_to_coupon_and_credit"
         self.kpi_labels["Coupons and Credit"]["start"] = int(round(time.time() * 1000))
         coupon_and_credit.click()
@@ -422,6 +425,29 @@ class ExpediaTest(unittest.TestCase):
             time.sleep(1)
         return capture_timestamp
     
+    # Swipe with respect to screen ratio
+    def screen_swipe(
+        self,
+        start_x_ratio=0.5,
+        start_y_ratio=0.8,
+        end_x_ratio=0.5,
+        end_y_ratio=0.5,
+        swipe_delay=300,
+    ):
+        """
+        Screen Swipe
+        """
+        screen_size = self.driver.get_window_size()
+        width = screen_size["width"]
+        height = screen_size["height"]
+        self.start_x = width * start_x_ratio
+        self.start_y = height * start_y_ratio
+        self.end_x = width * end_x_ratio
+        self.end_y = height * end_y_ratio
+        self.driver.swipe(
+            self.start_x, self.start_y, self.end_x, self.end_y, swipe_delay
+        )
+
             
 
 
