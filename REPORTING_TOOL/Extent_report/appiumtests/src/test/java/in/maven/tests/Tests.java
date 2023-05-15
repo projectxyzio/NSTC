@@ -27,6 +27,7 @@ public class Tests extends BaseClass{
 
         int count = 0;
         System.out.println( "Running a test! " );
+        driver.resetApp();
 
         // Creating the test
         report = extentReportDemo.report();
@@ -37,22 +38,34 @@ public class Tests extends BaseClass{
                 test = report.createTest( "Automation of Expedia - "+(count+1));
                 test.log( Status.INFO, "Test just started!" );
 
-                for( int i = 0; i < 2; i ++ )
-                wait.until( ExpectedConditions.presenceOfElementLocated( MobileBy.id( "com.expedia.bookings:id/button_next" ) ) ).click();
+
+                    try{
+
+                        wait.until( ExpectedConditions.presenceOfElementLocated( MobileBy.AccessibilityId( "More rewarding travel" ) ) );
+                        wait.until( ExpectedConditions.presenceOfElementLocated( MobileBy.className( "android.widget.Button" ) ) ).click();
+
+                    }
+
+                    catch( Exception e ){
+                        
+                        System.out.println("No Intital pop-ups");
+
+                    }
+                test.log( Status.INFO, "Initial pop-up cleared " );
+
+
 
                 try{
-                    wait.until( ExpectedConditions.presenceOfElementLocated( MobileBy.id( "com.expedia.bookings:id/button_final" ) ) ).click();
-                    test.log( Status.PASS, "Entered!" );
+                    wait.until( ExpectedConditions.presenceOfElementLocated( MobileBy.id( "com.google.android.gms:id/cancel") ) ).click();
+
                 }
 
                 catch( Exception e ){
-                    Thread.sleep( 3000 );
-                    wait.until( ExpectedConditions.presenceOfElementLocated( MobileBy.id( "com.expedia.bookings:id/button_final" ) ) ).click();
-                    test.log( Status.PASS, "Waited and entered!" );
+
+                    wait.until( ExpectedConditions.presenceOfElementLocated( MobileBy.AccessibilityId( "Sign in" ) ) );
+
+                    Thread.sleep( 1000 );
                 }
-
-                Thread.sleep( 5000 );
-
 
                 String xp;
                 if( count == 0 ){
@@ -60,7 +73,7 @@ public class Tests extends BaseClass{
                 }
 
                 else{
-                    xp = "(//android.widget.ImageButton[@content-desc=\"Sign in with Google\"])[2]";
+                    xp = "//android.widget.TextView[@content-desc='Continue with Google']";
                 }
 
                 try{
@@ -69,20 +82,17 @@ public class Tests extends BaseClass{
 
                 catch( Exception e ){
                     test.log( Status.FAIL, "Failed!" );
+
                 }
 
 
-                 wait.until( ExpectedConditions.presenceOfElementLocated( MobileBy.id( "com.google.android.gms:id/account_picker_container" ) ) ).click();
+                Thread.sleep( 2000 );
+                wait.until( ExpectedConditions.presenceOfElementLocated( MobileBy.id( "com.google.android.gms:id/account_picker_container" ) ) ).click();
 
-                 wait.until( ExpectedConditions.presenceOfElementLocated( MobileBy.className( "android.widget.LinearLayout" ) ) );
-
-                Thread.sleep(5000);
-
-
+                wait.until( ExpectedConditions.presenceOfElementLocated( MobileBy.className( "android.widget.LinearLayout" ) ) );
 
                 test.log( Status.PASS, "Login successful!" );
                 Thread.sleep( 3000 );
-
                 test.log( Status.INFO, "Test ended successfully!" );
 
             }
@@ -92,6 +102,7 @@ public class Tests extends BaseClass{
                 // System.out.println( "The cause: " +e.getCause() );
                 // System.out.println( "The message: " +e.getMessage() );
                 // System.out.println( "Stack Trace: "  +e.getStackTrace());
+                test.log( Status.FAIL, "Login Failed!" );
                 System.out.println(e);
 
             }
