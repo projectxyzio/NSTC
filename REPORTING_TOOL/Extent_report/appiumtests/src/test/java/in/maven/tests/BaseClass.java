@@ -17,17 +17,17 @@ import io.appium.java_client.MobileElement;
 import io.appium.java_client.remote.MobileCapabilityType;
 
 public class BaseClass extends extentReportDemo{
-    
+
     // Global variables
     static AppiumDriver<MobileElement> driver;
     WebDriverWait wait;
-    
+
     @BeforeTest
     public void setup(){
 
         try{
             // The url in which the appium server is running
-            URL url = new URL("https://in-bgl.headspin.io:3010/v0/<TOKEN>/wd/hub");
+            URL url = new URL("https://dev-us-pao-3.headspin.io:7001/v0/<TOKEN>/wd/hub");
 
             // The location of the app which should be launched in the android device
             // String myApp = "/Users/keer/Documents/Java/Expedia.apk";
@@ -37,7 +37,7 @@ public class BaseClass extends extentReportDemo{
             capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, "Android");
             capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, "8.1.0");
             capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, " 1724");
-            capabilities.setCapability(MobileCapabilityType.UDID, "94c0d2f7");
+            capabilities.setCapability(MobileCapabilityType.UDID, "R58R75M2ZNZ");
             // capabilities.setCapability(MobileCapabilityType.APP, myApp);
             capabilities.setCapability("autoAcceptAlerts", true);
             capabilities.setCapability("autoGrantPermissions", true);
